@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.UserMapper">
+
+    <select id="checkUsernameAndPassword" resultType="com.nzr.animalap.pojo.User">
+        select * from f_user
+        where username=#{username} and password=#{password};
+    </select>
+
+    <select id="adminLogin" resultType="com.nzr.animalap.pojo.User">
+        select * from f_user
+        where type=1 and username=#{username} and password=#{password}
+    </select>
+
+    <select id="checkrepeat" resultType="com.nzr.animalap.pojo.User">
+        select * from f_user
+        where username=#{username}
+    </select>
+
+    <insert id="signup" parameterType="com.nzr.animalap.pojo.User">
+        insert into f_user (username,password,nickname,createtime,updatetime,flag,status)
+        value (#{username},#{password},#{nickname},#{createtime},#{updatetime},#{flag},#{status});
+    </insert>
+
+    <update id="updatePassword">
+        update f_user set password=#{password} where id=#{id}
+    </update>
+
+    <select id="getByUsername" resultType="com.nzr.animalap.pojo.User">
+        select id,password from f_user where username=#{username}
+    </select>
+</mapper>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录页面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" data-filtered="filtered">
+    <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}">
+    <style>
+        body {
+            background-color: #DADADA;
+            /*background-image: url("../img/amazingAuthor.png");*/
+            background-image: url("[[@{/}]]img/amazingAuthor.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: right top;
+            background-attachment: scroll;
+            height: 1800px;
+        }
+    </style>
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui image header">
+            <img src="../static/img/leimu-small.jpg" th:src="@{/img/leimu-small.jpg}" class="ui circular image"><br><br>
+            <div class="content">
+                管理员登录
+            </div>
+        </h2>
+        <form class="ui large form" method="post" action="#" th:action="@{/fff/login}">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="username" placeholder="邮箱地址或手机号">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="密码">
+                    </div>
+                </div>
+                <div class="ui fluid inverted large submit button">登录</div>
+            </div>
+            <div class="ui error mini message"></div>
+            <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+
+    $('.ui.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入用户名',
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入密码'
+                }]
+            }
+        }
+    });
+</script>
+</body>
+</html>

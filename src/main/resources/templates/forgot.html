@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>重置密码</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          data-filtered="filtered">
+    <link rel="stylesheet" href="../static/css/forgot.css" th:href="@{/css/forgot.css}">
+<body>
+<div class="container" style="position: relative;left: 30%;width: 40%;">
+    <div class="ui segment">
+        <form class="ui form" method="post" th:object="${user}" action="#" th:action="@{/view/forgot}">
+            <div class="field">
+                <label>邮箱账号</label>
+                <input id="emailname" type="text" name="username" placeholder="请输入邮箱账号" onkeyup="ischeckemail()">
+                <div id="isemail" class="repeat message" style="display: none;">邮箱格式有误</div>
+            </div>
+            <div class="field">
+                <label>验证码</label>
+                <input style="width: 76%" type="text" name="vcode" placeholder="请输入验证码">
+                <button id="button2" type="button" class="ui button" style="background-color: #fe9900;color: whitesmoke"
+                        disabled="disabled">获取验证码</button>
+            </div>
+            <div class="field">
+                <label>新密码</label>
+                <input id="password1" type="password" name="password" placeholder="请输入新密码" onkeyup="ischeckpwd()">
+                <div id="ispassword" class="repeat message2" style="color: #ff2323;display: none;">密码格式应为8~20位字母和数字组合</div>
+            </div>
+            <div class="field">
+                <div class="ui checkbox">
+                    <input id="check" type="checkbox" value="uncheck" onclick="dpt()">
+                    <label>我确定“我已经把密码改好了(而且记住了)”</label>
+                </div>
+            </div>
+            <button id="button1" class="ui button" type="submit" disabled>重置密码</button>
+            <div class="ui error mini message"></div>
+            <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">重置密码失败</div>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    function dpt() {
+        if ($("#check").val() == "uncheck") {
+            $("#check").val("check");
+            $("#button1").removeAttr("disabled");
+        } else {
+            $("#check").val("uncheck");
+            $("#button1").attr("disabled", "disabled");
+        }
+    }
+
+    function ischeckemail() {
+        let email = document.getElementById("emailname").value;
+        if (email != "") {
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            isok = reg.test(email);
+            if (!isok) {
+                document.getElementById("isemail").style.display = "block";
+                document.getElementById("emailname").focus();
+                $("#button2").attr("disabled", "disabled");
+            } else {
+                document.getElementById("isemail").style.display = "none";
+                $("#button2").removeAttr("disabled");
+            }
+        } else {
+            document.getElementById("isemail").style.display = "block";
+        }
+        return true;
+    }
+
+    function ischeckpwd(){
+        let value = document.getElementById("password1").value;
+        if(value.length<8){
+            document.getElementById("ispassword").style.display="block";
+        }else{
+            document.getElementById("ispassword").style.display="none";
+        }
+        return true;
+    }
+
+    $("#button2").on('click', function () {
+        time(document.getElementById("button2"));
+        loaddata();
+    });
+
+    function loaddata() {
+        $.ajax({
+            url: '/view/vcode',
+            type: 'get',
+            data: 'username=' + document.getElementById("emailname").value,
+            dataType: 'text',
+            success: function (data) {
+
+            },
+            error: function () {
+                alert("该邮箱未注册！请先注册");
+            }
+        })
+    }
+
+    var wait = 60;
+
+    function time(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.innerHTML = "获取验证码";
+            o.style.backgroundColor = "#fe9900";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.innerHTML = wait + "秒后重新获取";
+            o.style.backgroundColor = "#8f8b8b";
+            wait--;
+            setTimeout(function () {
+                time(o)
+            }, 1000)
+        }
+    }
+
+    $('.ui.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入用户名',
+                }]
+            },
+            vcode: {
+                identifier: 'vcode',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入验证码',
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入新密码',
+                }]
+            }
+        }
+    });
+
+</script>
+</body>

@@ -1,0 +1,7 @@
+.repeat.message{
+    position: absolute;
+    color: #ff2323;
+    top: 10%;
+    right: 1%;
+    z-index: 100;
+}

@@ -1,0 +1,121 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    background-color: #eeeeee;
+
+}
+.gradient{
+    position: absolute;
+    background-image: linear-gradient(to bottom right,whitesmoke, plum, lightgoldenrodyellow,darkseagreen);
+    /*z-index: 1;*/
+    height: 100%;
+    width: 100%;
+}
+
+.container{
+    width: 1000px;
+    height: 450px;
+    margin:60px auto;
+    position: absolute;
+    left: 400px;
+
+}
+
+
+.pic1{
+    left: 400px;
+    top: 0;
+    transform:rotate(-5deg);
+    -webkit-transform:rotate(-5deg);
+}
+
+.pic2{
+    left: 200px;
+    top: 10px;
+    transform:rotate(-20deg);
+    -webkit-transform:rotate(-20deg);
+}
+.pic3{
+    top: 220px;
+    right: 80px;
+    transform:rotate(5deg);
+    -webkit-transform:rotate(5deg);
+}
+
+.pic4{
+    top: 100px;
+    left: 300px;
+    transform:rotate(-10deg);
+    -webkit-transform:rotate(-10deg);
+}
+
+.pic5{
+
+    top: 20px;
+    right: 150px;
+    transform:rotate(-10deg);
+    -webkit-transform:rotate(-10deg);
+}
+.pic6{
+    left: 10px;
+    top: 0;
+    transform:rotate(10deg);
+    -webkit-transform:rotate(10deg);
+}
+
+.pic7{
+    left: 850px;
+    top: 0;
+    transform:rotate(20deg);
+    -webkit-transform:rotate(20deg);
+}
+.pic0{
+    bottom: -20px;
+    top: 190px;
+    transform:rotate(5deg);
+    -webkit-transform:rotate(-15deg);
+}
+
+
+.container img{
+    padding: 10px 10px 15px;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 3px rgba(50,50,50,0.4);
+    -webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -ms-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+    position: absolute;
+    z-index: 1;
+}
+
+.pic{
+    width: 200px;
+    margin-right: 1%;
+}
+
+.container>img:hover{
+    box-shadow: 15px 15px 20px rgba(50,50,50,0.4);
+    transform:rotate(0deg) scale(2.20);
+    -webkit-transform:rotate(0deg) scale(1.50);
+    z-index: 1000;
+}
+
+.foot{
+    position: absolute;
+    bottom: 200px;
+    left: 43%;
+    z-index: 100;
+    color: darkslateblue;
+}
+.foot a{
+    color: #eeeeee;
+    font-size: xx-large;
+    text-decoration: none;
+    text-shadow: 2px 2px 4px #000000;
+}

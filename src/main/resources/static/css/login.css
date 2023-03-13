@@ -1,0 +1,63 @@
+body > .grid {
+    height: 110%;
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+}
+p{
+    color: whitesmoke;
+}
+p a{
+    color: white;
+}
+.icon{
+    color: whitesmoke;
+}
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}
+.ui.segment {
+    border-style: none;
+    background-color: rgba(0,0,0,0);
+}
+.ui.segment .field{
+    background-color: rgba(0,0,0,0.2);
+}
+.ui.segment .field .ui.input input{
+    background-color: rgba(0,0,0,0.2);
+    color: whitesmoke;
+}
+.content {
+    color: whitesmoke;
+}
+.ui.message{
+    border-style: none;
+    background-color: rgba(0,0,0,0);
+}
+.repeat.message{
+    position: absolute;
+    color: #ff2323;
+    bottom: 0px;
+    right: 0px;
+}
+.back{
+    position: absolute;
+    width: 400px;
+    top:30%;
+    left: 30%;
+    z-index: 100;
+}
+.back .ui.label{
+    position: relative;
+    opacity: 0%;
+    width: 40%;
+    left: 10%;
+    transition: all 1s;
+}
+.back a:hover + .ui.label{
+    opacity: 100%;
+    width: 23%;
+    left: 0%;
+}

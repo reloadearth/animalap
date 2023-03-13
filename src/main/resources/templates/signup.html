@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>用户注册页面</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" data-filtered="filtered">
+  <link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
+  <style>
+    body {
+      background-color: #DADADA;
+      /*background-image: url("../img/amazingAuthor.png");*/
+      background-image: url("[[@{/}]]img/amazingAuthor.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: right top;
+      background-attachment: scroll;
+    }
+    .grid{
+      bottom: -14px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="back">
+  <a href="#" th:href="@{/view/login}"><i class="big arrow left icon"></i></a>
+  <div class="ui black left pointing label" >返回登录页面</div>
+</div>
+</div>
+<div class="ui middle aligned center aligned grid" style="position: relative;height: 100%">
+  <div class="column">
+    <h2 class="ui image header">
+      <img src="../static/img/leimu-small.jpg" th:src="@{/img/leimu-small.jpg}" class="ui circular image"><br><br>
+      <div class="content">
+        用户注册
+      </div>
+    </h2>
+    <form class="ui large form" method="post" th:object="${user}" action="#" th:action="@{/view/signup}">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input id="emailname" type="text" name="username" placeholder="请输入邮箱" onkeyup="ischeckemail()">
+            <div id="repeat"></div>
+            <div id="isemail" class="repeat message" style="display: none;">邮箱格式有误</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input id="password1" type="password" name="password" maxlength="20" placeholder="请输入密码" onkeyup="ischeckpwd()">
+            <div id="ispassword" class="repeat message" style="display: none;">密码格式应为8~20位字母和数字组合</div>
+          </div>
+        </div>
+        <button id="button1" class="ui fluid inverted large submit button" disabled="disabled">注册</button>
+      </div>
+      <div class="ui error mini message"></div>
+      <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">注册失败，可能是邮箱已被注册或格式有误</div>
+
+    </form>
+
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script th:inline="javascript">
+  var flag = false;
+  function pass(){
+    if(document.getElementById("emailname").value != null && document.getElementById("password1").value.length != 0
+            && document.getElementById("isemail").style.display == "none" && document.getElementById("ispassword").style.display == "none"
+            && flag == true){
+        $("#button1").removeAttr("disabled");
+    } else{
+      $("#button1").attr("disabled","disabled");
+    }
+  }
+
+  function isrepeat() {
+      loaddata();
+  }
+
+  function loaddata(){
+    $.ajax({
+      url: '/view/checkrepeat',
+      type: 'post',
+      data: 'username='+document.getElementById("emailname").value,
+      dataType: 'text',
+      async: false,
+      success:function (data){
+        if(data == "true"){
+          flag=true;
+          $("#repeat").empty();
+        }else{
+          flag=false;
+          $("#repeat").html("<div class='repeat message'><span style='color: red'>该账号已被注册</span></div>");
+        }
+      },
+      error:function (){
+        alert("出问题了");
+      },
+    })
+
+  }
+
+  function ischeckemail(){
+    let email = document.getElementById("emailname").value;
+    if (email != "") {
+      var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+      isok = reg.test(email);
+      if (!isok) {
+        document.getElementById("isemail").style.display="block";
+        // document.getElementById("emailname").focus();
+        pass();
+      }else{
+        document.getElementById("isemail").style.display="none";
+        isrepeat();
+        pass();
+      }
+    }else{
+      document.getElementById("isemail").style.display="block";
+      pass();
+    }
+    return true;
+  }
+
+  function ischeckpwd(){
+    let value = document.getElementById("password1").value;
+    if(value.length<8){
+      document.getElementById("ispassword").style.display="block";
+      pass();
+    }else{
+      document.getElementById("ispassword").style.display="none";
+      pass();
+    }
+    return true;
+  }
+
+  $('.ui.form').form({
+    fields: {
+      username: {
+        identifier: 'username',
+        rules: [{
+          type: 'empty',
+          prompt: '请输入用户名',
+        }]
+      },
+      password: {
+        identifier: 'password',
+        rules: [{
+          type: 'empty',
+          prompt: '请输入密码'
+        }]
+      }
+    }
+  });
+</script>
+</body>
+</html>
