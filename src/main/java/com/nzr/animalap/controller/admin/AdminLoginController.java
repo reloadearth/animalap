@@ -23,15 +23,22 @@ public class AdminLoginController {
     public String ToLogin(){
         return "fff/login";
     }
-    @PostMapping("login")
+    @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, RedirectAttributes attributes, HttpSession session){
         User admin = userService.adminLogin(username,password);
         if( admin != null){
             admin.setPassword(null);
             session.setAttribute("admin",admin);
-            return "fff/homepage";
+            return "redirect:/fff/animal";
         }
         attributes.addFlashAttribute("message","账号或密码不正确");
         return "redirect:/fff";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("admin");
+        return "fff/login";
+    }
+
 }

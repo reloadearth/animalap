@@ -8,9 +8,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Agreement {
-    private int id;
-    private int userId;
-    private int animalId;
+    private Integer id;
+    private Integer userId;
+    private Integer animalId;
     private String identitycard;
     private String phone;
     private String qq;

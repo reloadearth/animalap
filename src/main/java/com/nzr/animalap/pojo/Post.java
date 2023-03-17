@@ -10,8 +10,8 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class Post {
-    private int id;
-    private int userId;
+    private Integer id;
+    private Integer userId;
     private String content;
     private Date createtime;
     private boolean status;

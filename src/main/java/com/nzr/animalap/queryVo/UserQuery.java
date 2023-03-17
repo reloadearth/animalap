@@ -1,4 +1,4 @@
-package com.nzr.animalap.pojo;
+package com.nzr.animalap.queryVo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,7 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-public class Animal_picture {
+public class UserQuery {
     private int id;
-    private int animalId;
-    private String address;
+    private String nickname;
 }

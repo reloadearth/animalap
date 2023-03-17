@@ -9,11 +9,11 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class Agreement_progress {
-    private int id;
-    private int userId;
-    private int agreementId;
-    private int animalId;
+public class AgreementProgress {
+    private Integer id;
+    private Integer userId;
+    private Integer agreementId;
+    private Integer animalId;
     private Date createtime;
     private boolean status;
 

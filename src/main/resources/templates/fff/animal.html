@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员主页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          data-filtered="filtered">
+    <link rel="stylesheet" href="../../static/css/homepage.css" th:href="@{/css/homepage.css}">
+</head>
+<body>
+<!-- Page Contents -->
+<div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment" style="background-color: #374151">
+        <div class="ui container">
+            <div class="ui large secondary inverted pointing menu"
+                 style="background-color: #374151;border-style: hidden">
+                <a class="active item" href="#" th:href="@{/fff/animal}"><i class="list alternate outline icon"></i>动物信息</a>
+                <a class="item" href="#" th:href="@{/fff/rop}" target="_blank"><i class="tasks icon"></i>流程审批</a>
+                <a class="item" href="#" th:href="@{/fff/user}" target="_blank"><i class="users icon"></i>用户管理</a>
+                <a class="item" href="#" th:href="@{/fff/bbs}" target="_blank"><i class="comment alternate outline icon"></i>论坛管理</a>
+                <a class="item" href="#" th:href="@{/fff/notice}" target="_blank"><i class="bell outline icon"></i>发布通知</a>
+                <a class="item" href="#" th:href="@{/fff/avatar}" target="_blank"><i class="picture icon"></i>头像信息</a>
+                <div class="right menu">
+                    <div class="right m-item m-mobile-hide menu">
+                        <div id="dropdown menu" class="ui dropdown item">
+                            <div class="text">
+                                <img class="ui avatar image" src="../../static/img/leimu-small.jpg"
+                                     th:src="@{/img/leimu-small.jpg}">
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item">
+                                    <a href="#" th:href="@{/fff/logout}"><i class="sign-out icon"></i>退出</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+        <div class="ui container">
+            <div class="ui secondary segment form" style="width: 100%">
+                <input type="hidden" name="page">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="keyword" placeholder="关键词">
+                    </div>
+                    <div class="ui field">
+                        <button id="rch" type="button" class="ui button"><i class="search icon"></i>搜索</button>
+                    </div>
+                    <div class="ui field" style="position: relative;left: 60%">
+                        <a href="#" th:href="@{/fff/animal/input}" class="ui yellow button"><i class="pencil icon"></i>添加</a>
+                    </div>
+                </div>
+            </div>
+            <div id="animalTable">
+                <table th:fragment="animalList" class="ui compact table">
+                    <thead>
+                    <tr align="center">
+                        <th>ID</th>
+                        <th>动物名</th>
+                        <th>动物图片</th>
+                        <th>联系人</th>
+                        <th>最近更新时间</th>
+                        <th>动物类型</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="animal,iterStat : ${pageInfo.list}" align="center">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${animal.animalName}">小黑</td>
+                        <td><img src="../../static/img/leimu-small.jpg" th:src="${animal.firstpicture}"
+                                 style="max-width: 100px;max-height: 60px"></td>
+                        <td th:text="${animal.nickname}">谭思言</td>
+                        <td th:text="${#dates.format(animal.updatetime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
+                        <td th:text="${animal.category.categoryName}">狗</td>
+                        <td th:text="${animal.status} ? 已公布 : 未公布">已公布</td>
+                        <td>
+                            <div class="ui buttons">
+                                <a href="#" th:href="@{/fff/animal/{id}/input(id=${animal.id})}"
+                                   class="ui positive button">编辑</a>
+                                <div class="or" data-text="io"></div>
+                                <a id="remove-btn" href="#" th:href="@{/fff/animal/{id}/remove(id=${animal.id})}" class="ui button">删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="7">
+                            <div class="ui grid">
+                                <div class="three wide column">
+                                    <button class="ui mini button" id="prePage" th:unless="${pageInfo.isFirstPage}">
+                                        上一页
+                                    </button>
+                                </div>
+
+                                <div class="four wide column">
+                                    第<input name="gotoPage" type="text" style="width: 20%">页
+                                    <button id="goto" type="button" class="ui mini button">直达</button>
+                                </div>
+                                <div class="six wide column">
+                                    <p style="height: 40px;vertical-align: middle;line-height: 30px;">第 <span
+                                            th:text="${pageInfo.pageNum}"></span> 页，共 <span id="maxPage"
+                                                                                            th:text="${pageInfo.pages}"></span>
+                                        页，有 <span th:text="${pageInfo.total}"></span> 只小动物</p>
+                                </div>
+
+                                <div class="three wide column">
+                                    <button class="ui mini button" id="nextPage" th:unless="${pageInfo.isLastPage}">
+                                        下一页
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"></i>
+                    <div class="" th:text="'操作提示:'+ ${message}">提示：操作成功！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+        <div class="ui text container">
+            <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+            <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing
+                nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic
+                and worth your attention.</p>
+            <a class="ui large button">Read More</a>
+            <h4 class="ui horizontal header divider">
+                <a href="#">Case Studies</a>
+            </h4>
+            <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+            <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really
+                true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+            <a class="ui large button">I'm Still Quite Interested</a>
+        </div>
+    </div>
+
+
+    <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="https://blog.csdn.net/qq_45630650?spm=1010.2135.3001.5343" target="_blank"
+                           class="item">reloadEarth</a>
+                        <a href="#" class="item">WH</a>
+                        <a href="#" class="item">Goals</a>
+                        <a href="#" class="item">Plans</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Services</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Banana Pre-Order</a>
+                        <a href="#" class="item">DNA FAQ</a>
+                        <a href="#" class="item">How To Access</a>
+                        <a href="#" class="item">Favorite X-Men</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">Footer Header</h4>
+                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $(".ui.dropdown").dropdown({
+        on: 'hover'
+    });
+    $("#remove-btn").click(function (){
+       return  confirm("真的要删除嘛，务必三思~");
+    });
+    var n = 1;
+    var max = document.getElementById("maxPage").innerText;
+    $("#rch").click(function () {
+        n = 1;
+        loaddata1();
+    });
+    $("#animalTable").on('click', '#goto', function () {
+        x = $("[name='gotoPage']").val();
+        if (x > 0 && x <= max) {
+            n = x;
+            $("#animalTable").load("/fff/animal/search", {
+                keyword: $("[name='keyword']").val(),
+                pageNum: n
+            })
+        } else {
+            alert("页数输出有误");
+        }
+    });
+    $("#animalTable").on('click', '#prePage', function () {
+        n--;
+        loaddata();
+    });
+    $("#animalTable").on('click', '#nextPage', function () {
+        n++;
+        loaddata();
+    });
+    function loaddata1(){
+        $("#animalTable").load("/fff/animal/search", {
+            keyword: $("[name='keyword']").val(),
+            pageNum: n
+        },function (response,status) {
+            if(status == "success"){
+                max = document.getElementById("maxPage").innerText;
+            }
+        });
+    }
+    function loaddata(){
+        $("#animalTable").load("/fff/animal/search", {
+            keyword: $("[name='keyword']").val(),
+            pageNum: n
+        });
+    }
+</script>
+
+</body>
+</html>

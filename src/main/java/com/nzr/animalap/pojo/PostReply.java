@@ -9,12 +9,12 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class Post_reply {
-    private int id;
-    private int userId;
+public class PostReply {
+    private Integer id;
+    private Integer userId;
     private String content;
     private Date createtime;
-    private int parentId;
+    private Integer parentId;
     private boolean status;
 
     private User user;

@@ -10,10 +10,10 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class Message {
-    private int id;
+    private Integer id;
     private String content;
-    private int sender;
-    private int recipient;
+    private Integer sender;
+    private Integer recipient;
     private Date createtime;
     private boolean status;
 

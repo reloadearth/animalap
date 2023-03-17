@@ -9,7 +9,7 @@
 
     <select id="adminLogin" resultType="com.nzr.animalap.pojo.User">
         select * from f_user
-        where type=1 and username=#{username} and password=#{password}
+        where flag=1 and username=#{username} and password=#{password}
     </select>
 
     <select id="checkrepeat" resultType="com.nzr.animalap.pojo.User">
@@ -28,5 +28,9 @@
 
     <select id="getByUsername" resultType="com.nzr.animalap.pojo.User">
         select id,password from f_user where username=#{username}
+    </select>
+
+    <select id="nicknameList" resultType="com.nzr.animalap.queryVo.UserQuery">
+        select id,nickname from f_user where flag=2
     </select>
 </mapper>

@@ -110,6 +110,10 @@ public class UserLoginController {
             default: attributes.addFlashAttribute("message","数据格式有误");
                     return "redirect:/view/forgot";
         }
-
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+        return "view/login";
     }
 }

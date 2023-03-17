@@ -10,8 +10,8 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class Vcode {
-    private int id;
+    private Integer id;
     private String vcode;
-    private int userId;
+    private Integer userId;
     private Date createtime;
 }

@@ -4,14 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Data
 @ToString
 @NoArgsConstructor
-public class Avatar {
+public class AnimalPicture {
     private Integer id;
-    private String name;
+    private Integer animalId;
     private String address;
-    private Date createtime;
 }

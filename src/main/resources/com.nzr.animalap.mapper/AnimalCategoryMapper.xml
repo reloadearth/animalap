@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.AnimalCategoryMapper">
+    <resultMap id="animalCategory" type="com.nzr.animalap.pojo.AnimalCategory">
+        <id property="id" column="id"></id>
+        <result property="categoryName" column="category_name"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="updatetime" column="updatetime"></result>
+    </resultMap>
+    <select id="categoryList" resultMap="animalCategory">
+        select id,category_name,createtime,updatetime from f_animal_category
+    </select>
+</mapper>

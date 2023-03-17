@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.AnimalMapper">
+    <sql id="search1">
+            1=1
+        <if test="keyword != null">
+            and (a.animal_name like #{keyword} or c.category_name like #{keyword})
+        </if>
+    </sql>
+    <resultMap id="animal" type="com.nzr.animalap.queryVo.AnimalQuery">
+        <id property="id" column="id"/>
+        <result property="animalName" column="animal_name"></result>
+        <result property="nickname" column="nickname"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="firstpicture" column="firstpicture"></result>
+        <result property="status" column="status"></result>
+        <association property="category" javaType="com.nzr.animalap.pojo.AnimalCategory">
+            <id property="id" column="cid"></id>
+            <id property="categoryName" column="category_name"></id>
+        </association>
+    </resultMap>
+
+    <select id="animalQueryList" resultMap="animal">
+        select a.id,a.animal_name,u.nickname,a.updatetime,a.firstpicture,c.id cid,c.category_name,a.status
+        from f_animal a left join f_animal_category c on a.category_id=c.id left join f_user u on a.user_id=u.id
+    </select>
+    <select id="search" resultMap="animal">
+        select a.id,a.animal_name,u.nickname,a.updatetime,a.firstpicture,c.id cid,c.category_name,a.status
+        from f_animal a left join f_animal_category c on a.category_id=c.id left join f_user u on a.user_id=u.id
+        <where>
+            <include refid="search1" />
+        </where>
+    </select>
+    <insert id="insert" parameterType="com.nzr.animalap.pojo.Animal">
+        insert into f_animal
+        (animal_name,age,gender,color,nature,health,category_id,user_id,status,createtime,updatetime,description,firstpicture,grade)
+        value (#{animalName},#{age},#{gender},#{color},#{nature},#{health},#{categoryId},#{userId}
+            ,#{status},#{createtime},#{updatetime},#{description},#{firstpicture},#{grade})
+    </insert>
+    <delete id="delete" parameterType="_int">
+        delete from f_animal where id=#{id}
+    </delete>
+    <select id="getById" parameterType="_int" resultType="com.nzr.animalap.pojo.Animal">
+        select id,animal_name,age,gender,color,nature,health,category_id,user_id,status,description,firstpicture,grade
+        from f_animal where id=#{id}
+    </select>
+    <update id="update" parameterType="com.nzr.animalap.pojo.Animal">
+        update f_animal set animal_name=#{animalName},age=#{age},gender=#{gender},color=#{color},nature=#{nature},health=#{health}
+                          ,category_id=#{categoryId},user_id=#{userId},status=#{status},updatetime=#{updatetime},description=#{description},firstpicture=#{firstpicture},grade=#{grade}
+        where id=#{id}
+    </update>
+</mapper>

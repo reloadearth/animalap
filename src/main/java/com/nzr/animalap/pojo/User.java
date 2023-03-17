@@ -10,14 +10,14 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String nickname;
     private Date createtime;
     private Date updatetime;
     private String avatar;
-    private int flag;
+    private Integer flag;
     private String phone;
     private boolean status;
 }

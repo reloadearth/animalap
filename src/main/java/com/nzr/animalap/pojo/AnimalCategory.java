@@ -9,8 +9,9 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class Animal_category {
-    private int id;
-    private String name;
+public class AnimalCategory {
+    private Integer id;
+    private String categoryName;
     private Date createtime;
+    private Date updatetime;
 }

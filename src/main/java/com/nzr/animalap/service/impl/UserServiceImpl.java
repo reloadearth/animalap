@@ -4,6 +4,7 @@ import com.nzr.animalap.mapper.UserMapper;
 import com.nzr.animalap.mapper.VcodeMapper;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.pojo.Vcode;
+import com.nzr.animalap.queryVo.UserQuery;
 import com.nzr.animalap.service.UserService;
 import com.nzr.animalap.utils.MD5Utils;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -94,6 +96,11 @@ public class UserServiceImpl implements UserService {
         }
 
         return userMapper.updatePassword(user.getId(),md5Password);
+    }
+
+    @Override
+    public List<UserQuery> nicknameList() {
+        return userMapper.nicknameList();
     }
 
 }

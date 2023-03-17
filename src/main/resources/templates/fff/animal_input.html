@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加动物</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          data-filtered="filtered">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="ui container">
+    <div class="ui segment">
+        <form id="animal-form" action="#" th:object="${animal}"
+              th:action="*{id}==null ? @{/fff/animal/input} : @{/fff/animal/{id}/input(id=*{id})}" method="post"
+              class="ui form">
+            <input type="hidden" name="published" th:value="*{status}">
+            <input type="hidden" name="id" th:value="*{id}">
+
+
+            <div class="ui grid">
+                <div class="three wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="animalName" placeholder="动物名称" th:value="*{animalName}">
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="required field">
+                        <input type="number" name="age" placeholder="年龄" th:value="*{age}">
+                    </div>
+                </div>
+                <div class="nine wide computer three wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="nature" placeholder="性格特征" th:value="*{nature}">
+                    </div>
+                </div>
+                <div class="nine wide computer three wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="health" placeholder="健康情况" th:value="*{health}">
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="required field">
+                        <input type="text" name="gender" placeholder="性别" th:value="*{gender}">
+                    </div>
+                </div>
+                <div class="three wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="color" placeholder="颜色" th:value="*{color}">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="fields">
+                <div class="required field">
+                    <div class="ui labeled input">
+                        <label class="ui compact blue basic label">分类</label>
+                        <div class="ui fluid selection dropdown">
+                            <input type="hidden" name="categoryId" th:value="${animal.categoryId}">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类选择</div>
+                            <div class="menu">
+
+                                <div th:each="category : ${animalCategorys}" class="item" data-value="1"
+                                     th:data-value="${category.id}"
+                                     th:text="${category.categoryName}">猫
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="required field">
+                    <div class="ui labeled input">
+                        <label class="ui compact blue basic label">联系人</label>
+                        <div class="ui fluid selection dropdown">
+                            <input type="hidden" name="userId" th:value="${animal.userId}">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">寄养中心选择</div>
+                            <div class="menu">
+
+                                <div th:each="user : ${users}" class="item" data-value="1" th:data-value="${user.id}"
+                                     th:text="${user.nickname}">小猫寄养中心
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="required field">
+                    <div class="ui labeled input">
+                        <label class="ui compact blue basic label">首图地址</label>
+                        <div class="ui fluid">
+                            <input type="text" name="firstpicture" th:value="*{firstpicture}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <textarea name="description" placeholder="喵咪描述...(上限200字)" maxlength="200"
+                          th:text="*{description}"></textarea>
+            </div>
+            <div class="grouped fields">
+                <label>资质级别</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="5" name="grade" th:checked="*{grade==5}">
+                        <label>level5</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="4" name="grade" th:checked="*{grade==4}">
+                        <label>level4</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="3" name="grade" checked="checked" th:checked="*{grade==3}">
+                        <label>level3(默认)</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="2" name="grade" th:checked="*{grade==2}">
+                        <label>level2</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="1" name="grade" th:checked="*{grade==1}">
+                        <label>level1</label>
+                    </div>
+                </div>
+            </div>
+            <div class="ui error message"></div>
+
+            <div class="ui right aligned container">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" name="status" th:checked="*{status}">
+                    <label>
+                        <div class="ui label" style="position: relative;top:-5px">上架</div>
+                    </label>
+                    <br>
+                </div>
+            </div>
+            <div class="ui right aligned container">
+                <button type="button" class="ui instagram button" onclick="window.history.go(-1)">返回</button>
+                <button id="publish-btn" class="ui blue button">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+    $("[name='age']").innerText = null;
+
+    $(".ui.form").form({
+        fields: {
+            animalName: {
+                identifier: 'animalName',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物名称'
+                }]
+            },
+            age: {
+                identifier: 'age',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物年龄'
+                }]
+            },
+            nature: {
+                identifier: 'nature',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物性格特征'
+                }]
+            },
+            health: {
+                identifier: 'health',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物健康情况'
+                }]
+            },
+            gender: {
+                identifier: 'gender',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物性别'
+                }]
+            },
+            color: {
+                identifier: 'color',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物品相'
+                }]
+            },
+            categoryId: {
+                identifier: 'categoryId',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请选择动物分类'
+                }]
+            },
+            userId: {
+                identifier: 'userId',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请选择联系机构'
+                }]
+            },
+            firstpicture: {
+                identifier: 'firstpicture',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物首图地址'
+                }]
+            },
+            description: {
+                identifier: 'description',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入动物描述'
+                }]
+            },
+
+        }
+    });
+
+</script>
+</body>
+</html>

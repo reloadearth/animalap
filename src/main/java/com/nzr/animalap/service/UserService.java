@@ -17,4 +17,6 @@ public interface UserService {
     User getByUsername(String username);
 
     int forgot(String username, String vcode, String password);
+
+    Object nicknameList();
 }
