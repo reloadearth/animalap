@@ -1,6 +1,7 @@
 package com.nzr.animalap.mapper;
 
 import com.nzr.animalap.pojo.User;
+import com.nzr.animalap.queryVo.UserDetailQuery;
 import com.nzr.animalap.queryVo.UserQuery;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,14 @@ public interface UserMapper {
     int updatePassword(@Param("id") int id,@Param("password") String md5Password);
 
     List<UserQuery> nicknameList();
+
+    List<UserDetailQuery> detailList();
+
+    int delete(int id);
+
+    User getById(int id);
+
+    int update(User user);
+
+    List<UserDetailQuery> search(String keyword);
 }

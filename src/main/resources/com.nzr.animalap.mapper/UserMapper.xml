@@ -3,34 +3,66 @@
 <mapper namespace="com.nzr.animalap.mapper.UserMapper">
 
     <select id="checkUsernameAndPassword" resultType="com.nzr.animalap.pojo.User">
-        select * from f_user
+        select id,username from f_user
         where username=#{username} and password=#{password};
     </select>
-
     <select id="adminLogin" resultType="com.nzr.animalap.pojo.User">
-        select * from f_user
+        select id,username from f_user
         where flag=1 and username=#{username} and password=#{password}
     </select>
-
     <select id="checkrepeat" resultType="com.nzr.animalap.pojo.User">
-        select * from f_user
+        select id,username from f_user
         where username=#{username}
     </select>
-
     <insert id="signup" parameterType="com.nzr.animalap.pojo.User">
-        insert into f_user (username,password,nickname,createtime,updatetime,flag,status)
-        value (#{username},#{password},#{nickname},#{createtime},#{updatetime},#{flag},#{status});
+        insert into f_user (username,password,nickname,createtime,updatetime,avatar,flag,phone,status,description)
+        value (#{username},#{password},#{nickname},#{createtime},#{updatetime},#{avatar},#{flag},#{phone},#{status},#{description});
     </insert>
-
     <update id="updatePassword">
         update f_user set password=#{password} where id=#{id}
     </update>
-
     <select id="getByUsername" resultType="com.nzr.animalap.pojo.User">
         select id,password from f_user where username=#{username}
     </select>
-
     <select id="nicknameList" resultType="com.nzr.animalap.queryVo.UserQuery">
         select id,nickname from f_user where flag=2
+    </select>
+    <select id="detailList" resultType="com.nzr.animalap.queryVo.UserDetailQuery">
+        select id,username,nickname,updatetime,avatar,flag,phone,status from f_user where flag!=1
+    </select>
+    <delete id="delete">
+        delete from f_user
+        <where>
+            <if test="id != 1">
+                id=#{id}
+            </if>
+            <if test="id == 1">
+                and id=-1;
+            </if>
+        </where>
+    </delete>
+    <select id="getById" resultType="com.nzr.animalap.pojo.User">
+        select id,username,nickname,updatetime,avatar,flag,phone,status,description from f_user where id=#{id} and (flag=0 or flag=2)
+    </select>
+    <update id="update" parameterType="com.nzr.animalap.pojo.User">
+        update f_user set username=#{username},nickname=#{nickname},updatetime=#{updatetime},avatar=#{avatar},
+                          flag=#{flag},phone=#{phone},status=#{status},description=#{description}
+        <where>
+            <if test="id != 1">
+                id=#{id}
+            </if>
+            <if test="id == 1">
+                and id=-1
+            </if>
+        </where>
+    </update>
+    <select id="search" resultType="com.nzr.animalap.queryVo.UserDetailQuery">
+        select id,username,nickname,updatetime,avatar,flag,phone,status,description from f_user
+        <where>
+            flag!=1
+            <if test="keyword != null">
+                and (username like #{keyword} or nickname like #{keyword} or phone like #{keyword})
+            </if>
+        </where>
     </select>
 </mapper>

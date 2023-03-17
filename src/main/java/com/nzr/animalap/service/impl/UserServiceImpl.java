@@ -4,6 +4,7 @@ import com.nzr.animalap.mapper.UserMapper;
 import com.nzr.animalap.mapper.VcodeMapper;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.pojo.Vcode;
+import com.nzr.animalap.queryVo.UserDetailQuery;
 import com.nzr.animalap.queryVo.UserQuery;
 import com.nzr.animalap.service.UserService;
 import com.nzr.animalap.utils.MD5Utils;
@@ -51,12 +52,14 @@ public class UserServiceImpl implements UserService {
         Date now = new Date();
         user.setCreatetime(now);
         user.setUpdatetime(now);
-        StringBuilder s = new StringBuilder("rc_");
-        for(int i=0;i<8;i++){
-            char a = (char)((26*Math.random())+97);
-            s.append(a);
+        if(user.getNickname() == null) {
+            StringBuilder s = new StringBuilder("rc_");
+            for (int i = 0; i < 8; i++) {
+                char a = (char) ((26 * Math.random()) + 97);
+                s.append(a);
+            }
+            user.setNickname(s.toString());
         }
-        user.setNickname(s.toString());
         user.setFlag(0);
         user.setStatus(true);
         return userMapper.signup(user);
@@ -66,11 +69,6 @@ public class UserServiceImpl implements UserService {
     public int setVcode(Vcode vcode) {
         vcode.setCreatetime(new Date());
         return vcodeMapper.add(vcode);
-    }
-
-    @Override
-    public Vcode getVcode( int userId) {
-        return vcodeMapper.getNew(userId);
     }
 
     @Override
@@ -101,6 +99,47 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserQuery> nicknameList() {
         return userMapper.nicknameList();
+    }
+
+    @Override
+    public List<UserDetailQuery> detailList() {
+        return userMapper.detailList();
+    }
+
+    @Override
+    public int add(User user) {
+        if(userMapper.checkrepeat(user.getUsername()) != null){
+            return 0;
+        }
+        user.setPassword("123");
+        String md5password = MD5Utils.code(user.getPassword());
+        user.setPassword(md5password);
+        Date now = new Date();
+        user.setCreatetime(now);
+        user.setUpdatetime(now);
+        return userMapper.signup(user);
+    }
+
+    @Override
+    public int remove(int id) {
+        return userMapper.delete(id);
+    }
+
+    @Override
+    public User getById(int id) {
+        return userMapper.getById(id);
+    }
+
+    @Override
+    public int edit(User user) {
+        user.setUpdatetime(new Date());
+        return userMapper.update(user);
+    }
+
+    @Override
+    public List<UserDetailQuery> search(String keyword) {
+        String okKeyword = '%' + keyword + '%';
+        return userMapper.search(okKeyword);
     }
 
 }

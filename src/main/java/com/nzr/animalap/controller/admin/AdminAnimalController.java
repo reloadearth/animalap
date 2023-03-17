@@ -33,6 +33,8 @@ public class AdminAnimalController {
         if(animals != null){
             PageInfo<AnimalQuery> pageInfo = new PageInfo<>(animals);
             model.addAttribute("pageInfo",pageInfo);
+        }else{
+            return "error/404";
         }
 
         return "fff/animal";

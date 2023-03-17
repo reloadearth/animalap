@@ -1,4 +1,4 @@
-package com.nzr.animalap.pojo;
+package com.nzr.animalap.queryVo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,16 +9,13 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class User {
+public class UserDetailQuery {
     private Integer id;
     private String username;
-    private String password;
     private String nickname;
-    private Date createtime;
     private Date updatetime;
     private String avatar;
     private Integer flag;
     private String phone;
     private boolean status;
-    private String description;
 }

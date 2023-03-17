@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          data-filtered="filtered">
+</head>
+<body>
+<div class="ui container">
+    <div class="ui segment">
+        <form id="user-form" action="#" th:object="${user}"
+              th:action="*{id}==null ? @{/fff/user/input} : @{/fff/user/{id}/input(id=*{id})}" method="post"
+              class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+
+
+            <div class="ui grid">
+                <div class="three wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="username" placeholder="用户名(邮箱)" maxlength="30" th:value="*{username}">
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="required field">
+                        <input type="text" name="nickname" placeholder="昵称" maxlength="20" th:value="*{nickname}">
+                    </div>
+                </div>
+                <div class="nine wide computer three wide tablet six wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="avatar" placeholder="头像地址"  th:value="*{avatar}">
+                    </div>
+                </div>
+                <div class="nine wide computer three wide tablet five wide mobile column">
+                    <div class="required field">
+                        <input type="text" name="phone" placeholder="手机号" th:value="*{phone}">
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="required field">
+                <textarea name="description" placeholder="用户描述...(上限200字)" maxlength="200"
+                          th:text="*{description}"></textarea>
+            </div>
+            <div class="grouped fields">
+                <label>用户类型</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="0" name="flag" th:checked="*{flag==0}">
+                        <label>普通用户(默认)</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="2" name="flag" th:checked="*{flag==2}">
+                        <label>客服</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grouped fields">
+                <label>账号状态</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="1" name="status" th:checked="*{flag==0}">
+                        <label>正常(默认)</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="0" name="status" th:checked="*{flag==2}">
+                        <label>封禁中</label>
+                    </div>
+                </div>
+            </div>
+            <div class="ui error message"></div>
+
+            <div class="ui right aligned container">
+                <button type="button" class="ui instagram button" onclick="window.history.go(-1)">返回</button>
+                <button id="publish-btn" class="ui blue button">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $(".ui.form").form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入账号邮箱'
+                }]
+            },
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入账号昵称'
+                }]
+            },
+            avatar: {
+                identifier: 'avatar',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入头像地址'
+                }]
+            },
+            phone: {
+                identifier: 'phone',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入手机号'
+                }]
+            },
+            description: {
+                identifier: 'description',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题:请输入用户描述'
+                }]
+            },
+
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加动物</title>
+    <title>动物信息</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
           data-filtered="filtered">
-    <style>
-
-    </style>
 </head>
 <body>
 <div class="ui container">
@@ -15,39 +12,38 @@
         <form id="animal-form" action="#" th:object="${animal}"
               th:action="*{id}==null ? @{/fff/animal/input} : @{/fff/animal/{id}/input(id=*{id})}" method="post"
               class="ui form">
-            <input type="hidden" name="published" th:value="*{status}">
             <input type="hidden" name="id" th:value="*{id}">
 
 
             <div class="ui grid">
                 <div class="three wide computer nine wide tablet six wide mobile column">
                     <div class="required field">
-                        <input type="text" name="animalName" placeholder="动物名称" th:value="*{animalName}">
+                        <input type="text" name="animalName" placeholder="动物名称" maxlength="20" th:value="*{animalName}">
                     </div>
                 </div>
                 <div class="four wide column">
                     <div class="required field">
-                        <input type="number" name="age" placeholder="年龄" th:value="*{age}">
+                        <input type="number" name="age" placeholder="年龄" maxlength="20" th:value="*{age}">
                     </div>
                 </div>
                 <div class="nine wide computer three wide tablet six wide mobile column">
                     <div class="required field">
-                        <input type="text" name="nature" placeholder="性格特征" th:value="*{nature}">
+                        <input type="text" name="nature" placeholder="性格特征" maxlength="200" th:value="*{nature}">
                     </div>
                 </div>
                 <div class="nine wide computer three wide tablet six wide mobile column">
                     <div class="required field">
-                        <input type="text" name="health" placeholder="健康情况" th:value="*{health}">
+                        <input type="text" name="health" placeholder="健康情况" maxlength="200" th:value="*{health}">
                     </div>
                 </div>
                 <div class="four wide column">
                     <div class="required field">
-                        <input type="text" name="gender" placeholder="性别" th:value="*{gender}">
+                        <input type="text" name="gender" placeholder="性别" maxlength="20" th:value="*{gender}">
                     </div>
                 </div>
                 <div class="three wide computer nine wide tablet six wide mobile column">
                     <div class="required field">
-                        <input type="text" name="color" placeholder="颜色" th:value="*{color}">
+                        <input type="text" name="color" placeholder="颜色" maxlength="20" th:value="*{color}">
                     </div>
                 </div>
             </div>
@@ -90,7 +86,7 @@
                     <div class="ui labeled input">
                         <label class="ui compact blue basic label">首图地址</label>
                         <div class="ui fluid">
-                            <input type="text" name="firstpicture" th:value="*{firstpicture}">
+                            <input type="text" name="firstpicture" maxlength="200" th:value="*{firstpicture}">
                         </div>
                     </div>
                 </div>
@@ -157,7 +153,6 @@
     $('.ui.dropdown').dropdown({
         on: 'hover'
     });
-    $("[name='age']").innerText = null;
 
     $(".ui.form").form({
         fields: {
