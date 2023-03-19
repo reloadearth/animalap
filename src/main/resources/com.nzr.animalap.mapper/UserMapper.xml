@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.nzr.animalap.mapper.UserMapper">
+    <resultMap id="detail" type="com.nzr.animalap.queryVo.UserDetailQuery">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="nickname" column="nickname"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="avatarId" column="avatar_id"></result>
+        <result property="flag" column="flag"></result>
+        <result property="phone" column="phone"></result>
+        <result property="status" column="status"></result>
+        <association property="avatar" javaType="com.nzr.animalap.pojo.Avatar">
+            <id property="id" column="aid"></id>
+            <result property="avatarName" column="avatar_name"></result>
+            <result property="address" column="address"></result>
+            <result property="flag" column="aflag"></result>
+        </association>
+    </resultMap>
 
     <select id="checkUsernameAndPassword" resultType="com.nzr.animalap.pojo.User">
         select id,username from f_user
@@ -15,8 +31,8 @@
         where username=#{username}
     </select>
     <insert id="signup" parameterType="com.nzr.animalap.pojo.User">
-        insert into f_user (username,password,nickname,createtime,updatetime,avatar,flag,phone,status,description)
-        value (#{username},#{password},#{nickname},#{createtime},#{updatetime},#{avatar},#{flag},#{phone},#{status},#{description});
+        insert into f_user (username,password,nickname,createtime,updatetime,avatar_id,flag,phone,status,description)
+        value (#{username},#{password},#{nickname},#{createtime},#{updatetime},#{avatarId},#{flag},#{phone},#{status},#{description});
     </insert>
     <update id="updatePassword">
         update f_user set password=#{password} where id=#{id}
@@ -27,8 +43,10 @@
     <select id="nicknameList" resultType="com.nzr.animalap.queryVo.UserQuery">
         select id,nickname from f_user where flag=2
     </select>
-    <select id="detailList" resultType="com.nzr.animalap.queryVo.UserDetailQuery">
-        select id,username,nickname,updatetime,avatar,flag,phone,status from f_user where flag!=1
+    <select id="detailList" resultMap="detail">
+        select u.id,u.username,u.nickname,u.updatetime,u.avatar_id,u.flag,u.phone,u.status,
+               a.id aid,a.avatar_name,a.address,a.flag aflag
+            from f_user u left join f_avatar a on u.avatar_id=a.id where u.flag!=1 and a.flag=1
     </select>
     <delete id="delete">
         delete from f_user
@@ -42,10 +60,10 @@
         </where>
     </delete>
     <select id="getById" resultType="com.nzr.animalap.pojo.User">
-        select id,username,nickname,updatetime,avatar,flag,phone,status,description from f_user where id=#{id} and (flag=0 or flag=2)
+        select id,username,nickname,updatetime,avatar_id,flag,phone,status,description from f_user where id=#{id} and (flag=0 or flag=2)
     </select>
     <update id="update" parameterType="com.nzr.animalap.pojo.User">
-        update f_user set username=#{username},nickname=#{nickname},updatetime=#{updatetime},avatar=#{avatar},
+        update f_user set username=#{username},nickname=#{nickname},updatetime=#{updatetime},avatar_id=#{avatarId},
                           flag=#{flag},phone=#{phone},status=#{status},description=#{description}
         <where>
             <if test="id != 1">
@@ -56,8 +74,10 @@
             </if>
         </where>
     </update>
-    <select id="search" resultType="com.nzr.animalap.queryVo.UserDetailQuery">
-        select id,username,nickname,updatetime,avatar,flag,phone,status,description from f_user
+    <select id="search" resultMap="detail">
+        select u.id,u.username,u.nickname,u.updatetime,u.avatar_id,u.flag,u.phone,u.status,
+            a.id aid,a.avatar_name,a.address,a.flag aflag
+        from f_user u left join f_avatar a on u.avatar_id=a.id
         <where>
             flag!=1
             <if test="keyword != null">

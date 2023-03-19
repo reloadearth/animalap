@@ -9,7 +9,6 @@ import com.nzr.animalap.queryVo.UserQuery;
 import com.nzr.animalap.service.UserService;
 import com.nzr.animalap.utils.MD5Utils;
 import lombok.AllArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -52,6 +51,7 @@ public class UserServiceImpl implements UserService {
         Date now = new Date();
         user.setCreatetime(now);
         user.setUpdatetime(now);
+        user.setAvatarId(1);
         if(user.getNickname() == null) {
             StringBuilder s = new StringBuilder("rc_");
             for (int i = 0; i < 8; i++) {
@@ -111,8 +111,7 @@ public class UserServiceImpl implements UserService {
         if(userMapper.checkrepeat(user.getUsername()) != null){
             return 0;
         }
-        user.setPassword("123");
-        String md5password = MD5Utils.code(user.getPassword());
+        String md5password = MD5Utils.code("123");
         user.setPassword(md5password);
         Date now = new Date();
         user.setCreatetime(now);

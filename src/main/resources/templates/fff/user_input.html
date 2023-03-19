@@ -26,11 +26,6 @@
                         <input type="text" name="nickname" placeholder="昵称" maxlength="20" th:value="*{nickname}">
                     </div>
                 </div>
-                <div class="nine wide computer three wide tablet six wide mobile column">
-                    <div class="required field">
-                        <input type="text" name="avatar" placeholder="头像地址"  th:value="*{avatar}">
-                    </div>
-                </div>
                 <div class="nine wide computer three wide tablet five wide mobile column">
                     <div class="required field">
                         <input type="text" name="phone" placeholder="手机号" th:value="*{phone}">
@@ -71,6 +66,13 @@
                         <input type="radio" value="0" name="status" th:checked="*{flag==2}">
                         <label>封禁中</label>
                     </div>
+                </div>
+            </div>
+            <label>头像选择</label>
+            <div class="avatar image">
+                <div class="ui checkbox" style="width: 130px" th:each="atr : ${avatars}">
+                    <input type="radio" name="avatarId" th:value="${atr.id}" th:checked="*{avatarId}eq${atr.id}">
+                    <label><img style="max-width: 100px;max-height: 100px" src="../../static/img/error.png" th:src="${atr.address}"></label>
                 </div>
             </div>
             <div class="ui error message"></div>

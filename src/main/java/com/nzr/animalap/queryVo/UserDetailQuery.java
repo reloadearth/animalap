@@ -1,5 +1,6 @@
 package com.nzr.animalap.queryVo;
 
+import com.nzr.animalap.pojo.Avatar;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,8 +15,9 @@ public class UserDetailQuery {
     private String username;
     private String nickname;
     private Date updatetime;
-    private String avatar;
+    private Integer avatarId;
     private Integer flag;
     private String phone;
     private boolean status;
+    private Avatar avatar;
 }

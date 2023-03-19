@@ -11,7 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class Avatar {
     private Integer id;
-    private String name;
+    private String avatarName;
     private String address;
     private Date createtime;
+    private boolean flag;
 }

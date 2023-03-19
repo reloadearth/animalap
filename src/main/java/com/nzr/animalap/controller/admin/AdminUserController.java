@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.queryVo.UserDetailQuery;
+import com.nzr.animalap.service.AvatarService;
 import com.nzr.animalap.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.List;
 public class AdminUserController {
 
     private UserService userService;
+    private AvatarService avatarService;
 
     @RequestMapping("/user")
     public String listUsers(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum){
@@ -53,7 +55,9 @@ public class AdminUserController {
         User user = new User();
         user.setFlag(0);
         user.setStatus(true);
+        user.setAvatarId(1);
         model.addAttribute("user",user);
+        model.addAttribute("avatars",avatarService.list());
         return "fff/user_input";
     }
 
@@ -82,6 +86,7 @@ public class AdminUserController {
     @GetMapping("/user/{id}/input")
     public String ToEdit(@PathVariable int id,Model model){
         model.addAttribute("user",userService.getById(id));
+        model.addAttribute("avatars",avatarService.list());
         return "fff/user_input";
     }
 

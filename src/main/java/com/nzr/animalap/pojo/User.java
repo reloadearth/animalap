@@ -16,7 +16,7 @@ public class User {
     private String nickname;
     private Date createtime;
     private Date updatetime;
-    private String avatar;
+    private Integer avatarId;
     private Integer flag;
     private String phone;
     private boolean status;

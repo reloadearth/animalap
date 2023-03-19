@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.AvatarMapper">
+    <resultMap id="avatar" type="com.nzr.animalap.pojo.Avatar">
+        <id property="id" column="id"></id>
+        <result property="avatarName" column="avatar_name"></result>
+        <result property="address" column="address"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="flag" column="flag"></result>
+    </resultMap>
+    <select id="list" resultMap="avatar">
+        select * from f_avatar
+    </select>
+    <select id="search" resultMap="avatar">
+        select * from f_avatar where avatar_name like #{avatarName}
+    </select>
+    <insert id="insert" parameterType="com.nzr.animalap.pojo.Avatar">
+        insert into f_avatar (id,avatar_name,address,createtime,flag) value (#{id},#{avatarName},#{address},#{createtime},#{flag})
+    </insert>
+    <update id="update" parameterType="com.nzr.animalap.pojo.Avatar">
+        update f_avatar set avatar_name=#{avatarName},address=#{address},flag=#{flag}
+    </update>
+    <delete id="delete">
+        delete from f_avatar where id=#{id}
+    </delete>
+</mapper>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>动物信息</title>
+    <title>头像信息</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
           data-filtered="filtered">
     <link rel="stylesheet" href="../../static/css/homepage.css" th:href="@{/css/homepage.css}">
@@ -14,12 +14,12 @@
         <div class="ui container">
             <div class="ui large secondary inverted pointing menu"
                  style="background-color: #374151;border-style: hidden">
-                <a class="active item" href="#" th:href="@{/fff/animal}"><i class="list alternate outline icon"></i>动物信息</a>
+                <a class="item" href="#" th:href="@{/fff/animal}"><i class="list alternate outline icon"></i>动物信息</a>
                 <a class="item" href="#" th:href="@{/fff/rop}" ><i class="tasks icon"></i>流程审批</a>
                 <a class="item" href="#" th:href="@{/fff/user}" ><i class="users icon"></i>用户管理</a>
                 <a class="item" href="#" th:href="@{/fff/bbs}" ><i class="comment alternate outline icon"></i>论坛管理</a>
                 <a class="item" href="#" th:href="@{/fff/notice}" ><i class="bell outline icon"></i>发布通知</a>
-                <a class="item" href="#" th:href="@{/fff/avatar}" ><i class="picture icon"></i>头像信息</a>
+                <a class="active item" href="#" th:href="@{/fff/avatar}" ><i class="picture icon"></i>头像信息</a>
                 <div class="right menu">
                     <div class="right m-item m-mobile-hide menu">
                         <div id="dropdown menu" class="ui dropdown item">
@@ -63,35 +63,31 @@
                 </div>
             </div>
             <div id="table1">
-                <table th:fragment="animalList" class="ui compact table">
+                <table th:fragment="avatarList" class="ui compact table">
                     <thead>
                     <tr align="center">
                         <th>ID</th>
-                        <th>动物名</th>
-                        <th>动物图片</th>
-                        <th>联系人</th>
+                        <th>头像名称</th>
+                        <th>图片</th>
                         <th>最近更新时间</th>
-                        <th>动物类型</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="animal,iterStat : ${pageInfo.list}" align="center">
+                    <tr th:each="avatar,iterStat : ${pageInfo.list}" align="center">
                         <td th:text="${iterStat.count}">1</td>
-                        <td th:text="${animal.animalName}">小黑</td>
-                        <td><img src="../../static/img/leimu-small.jpg" th:src="${animal.firstpicture}"
+                        <td th:text="${avatar.avatarName}">小黑</td>
+                        <td><img src="../../static/img/leimu-small.jpg" th:src="${avatar.address}"
                                  style="max-width: 100px;max-height: 60px"></td>
-                        <td th:text="${animal.nickname}">谭思言</td>
-                        <td th:text="${#dates.format(animal.updatetime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
-                        <td th:text="${animal.category.categoryName}">狗</td>
-                        <td th:text="${animal.status} ? 已公布 : 未公布">已公布</td>
+                        <td th:text="${#dates.format(avatar.createtime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
+                        <td th:text="${avatar.flag} ? 已公布 : 未公布">已公布</td>
                         <td>
                             <div class="ui buttons">
-                                <a href="#" th:href="@{/fff/animal/{id}/input(id=${animal.id})}"
+                                <a href="#" th:href="@{/fff/avatar/{id}/input(id=${avatar.id})}"
                                    class="ui positive button">编辑</a>
                                 <div class="or" data-text="io"></div>
-                                <a id="remove-btn" href="#" th:href="@{/fff/animal/{id}/remove(id=${animal.id})}" class="ui button">删除</a>
+                                <a id="remove-btn" href="#" th:href="@{/fff/avatar/{id}/remove(id=${avatar.id})}" class="ui button">删除</a>
                             </div>
                         </td>
                     </tr>
@@ -189,7 +185,7 @@
         on: 'hover'
     });
     $("#remove-btn").click(function (){
-       return  confirm("真的要删除嘛，务必三思~");
+        return  confirm("真的要删除嘛，务必三思~");
     });
     var n = 1;
     var max = document.getElementById("maxPage").innerText;
@@ -215,7 +211,7 @@
         loaddata();
     });
     function loaddata1(){
-        $("#table1").load("/fff/animal/search", {
+        $("#table1").load("/fff/avatar/search", {
             keyword: $("[name='keyword']").val(),
             pageNum: n
         },function (response,status) {
@@ -225,7 +221,7 @@
         });
     }
     function loaddata(){
-        $("#table1").load("/fff/animal/search", {
+        $("#table1").load("/fff/avatar/search", {
             keyword: $("[name='keyword']").val(),
             pageNum: n
         });
