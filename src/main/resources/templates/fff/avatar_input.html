@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>头像信息</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+        data-filtered="filtered">
+</head>
+<body>
+<div class="ui container">
+  <div class="ui segment">
+    <form id="user-form" action="#" th:object="${avatar}"
+          th:action="*{id}==null ? @{/fff/avatar/input} : @{/fff/avatar/{id}/input(id=*{id})}" method="post"
+          class="ui form">
+      <input type="hidden" name="id" th:value="*{id}">
+      <div class="ui grid">
+        <div class="seven wide computer nine wide tablet six wide mobile column">
+          <div class="required field">
+            <input type="text" name="avatarName" placeholder="头像名称" maxlength="30" th:value="*{avatarName}">
+          </div>
+        </div>
+        <div class="nine wide computer three wide tablet five wide mobile column">
+          <div class="required field">
+            <input type="text" name="address" placeholder="头像地址" th:value="*{address}">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="grouped fields">
+        <label>账号状态</label>
+        <div class="field">
+          <div class="ui slider checkbox">
+            <input type="radio" value="true" name="flag" th:checked="*{flag==true}">
+            <label>正常(默认)</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui slider checkbox">
+            <input type="radio" value="false" name="flag" th:checked="*{flag==false}">
+            <label>封禁</label>
+          </div>
+        </div>
+      </div>
+      <div class="ui error message"></div>
+
+      <div class="ui right aligned container">
+        <button type="button" class="ui instagram button" onclick="window.history.go(-1)">返回</button>
+        <button id="publish-btn" class="ui blue button">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+  $('.ui.dropdown').dropdown({
+    on: 'hover'
+  });
+
+  $(".ui.form").form({
+    fields: {
+      avatarName: {
+        identifier: 'avatarName',
+        rules: [{
+          type: 'empty',
+          prompt: '标题:请输入账号邮箱'
+        }]
+      },
+      address: {
+        identifier: 'address',
+        rules: [{
+          type: 'empty',
+          prompt: '标题:请输入账号昵称'
+        }]
+      },
+    }
+  });
+
+</script>
+</body>
+</html>

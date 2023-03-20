@@ -6,6 +6,7 @@ import com.nzr.animalap.service.AvatarService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,5 +18,32 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public List<Avatar> list() {
         return avatarMapper.list();
+    }
+
+    @Override
+    public int add(Avatar avatar) {
+        avatar.setCreatetime(new Date());
+        return avatarMapper.insert(avatar);
+    }
+
+    @Override
+    public int remove(int id) {
+        return avatarMapper.delete(id);
+    }
+
+    @Override
+    public int edit(Avatar avatar) {
+        return avatarMapper.update(avatar);
+    }
+
+    @Override
+    public Avatar getById(int id) {
+        return avatarMapper.getById(id);
+    }
+
+    @Override
+    public List<Avatar> search(String keyword) {
+        String okKeyword = '%' + keyword + '%';
+        return avatarMapper.search(okKeyword);
     }
 }

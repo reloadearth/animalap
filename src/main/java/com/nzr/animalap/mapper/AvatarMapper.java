@@ -9,4 +9,14 @@ import java.util.List;
 public interface AvatarMapper {
 
     List<Avatar> list();
+
+    int insert(Avatar avatar);
+
+    int delete(int id);
+
+    int update(Avatar avatar);
+
+    Avatar getById(int id);
+
+    List<Avatar> search(String keyword);
 }

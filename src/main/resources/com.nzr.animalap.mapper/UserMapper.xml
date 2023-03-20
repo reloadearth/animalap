@@ -79,7 +79,7 @@
             a.id aid,a.avatar_name,a.address,a.flag aflag
         from f_user u left join f_avatar a on u.avatar_id=a.id
         <where>
-            flag!=1
+            u.flag!=1 and a.flag=1
             <if test="keyword != null">
                 and (username like #{keyword} or nickname like #{keyword} or phone like #{keyword})
             </if>

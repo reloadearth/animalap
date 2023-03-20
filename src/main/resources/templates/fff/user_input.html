@@ -57,13 +57,13 @@
                 <label>账号状态</label>
                 <div class="field">
                     <div class="ui slider checkbox">
-                        <input type="radio" value="1" name="status" th:checked="*{flag==0}">
+                        <input type="radio" value="true" name="status" th:checked="*{status==true}">
                         <label>正常(默认)</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui slider checkbox">
-                        <input type="radio" value="0" name="status" th:checked="*{flag==2}">
+                        <input type="radio" value="false" name="status" th:checked="*{status==false}">
                         <label>封禁中</label>
                     </div>
                 </div>

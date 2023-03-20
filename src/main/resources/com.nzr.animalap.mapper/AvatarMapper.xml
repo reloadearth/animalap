@@ -18,9 +18,12 @@
         insert into f_avatar (id,avatar_name,address,createtime,flag) value (#{id},#{avatarName},#{address},#{createtime},#{flag})
     </insert>
     <update id="update" parameterType="com.nzr.animalap.pojo.Avatar">
-        update f_avatar set avatar_name=#{avatarName},address=#{address},flag=#{flag}
+        update f_avatar set avatar_name=#{avatarName},address=#{address},flag=#{flag} where id=#{id}
     </update>
     <delete id="delete">
         delete from f_avatar where id=#{id}
     </delete>
+    <select id="getById" resultMap="avatar">
+        select * from f_avatar where id=#{id}
+    </select>
 </mapper>
