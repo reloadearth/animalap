@@ -9,14 +9,11 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class Message {
+public class Notice {
     private Integer id;
+    private String title;
     private String content;
-    private Integer sender;
-    private Integer recipient;
     private Date createtime;
-    private boolean status;
+    private boolean flag;
 
-    private String sendername;
-    private String recipientname;
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>头像信息</title>
+    <title>公告信息</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
           data-filtered="filtered">
     <link rel="stylesheet" href="../../static/css/homepage.css" th:href="@{/css/homepage.css}">
@@ -18,8 +18,8 @@
                 <a class="item" href="#" th:href="@{/fff/rop}" ><i class="tasks icon"></i>流程审批</a>
                 <a class="item" href="#" th:href="@{/fff/user}" ><i class="users icon"></i>用户管理</a>
                 <a class="item" href="#" th:href="@{/fff/bbs}" ><i class="comment alternate outline icon"></i>论坛管理</a>
-                <a class="item" href="#" th:href="@{/fff/notice}" ><i class="bell outline icon"></i>发布通知</a>
-                <a class="active item" href="#" th:href="@{/fff/avatar}" ><i class="picture icon"></i>头像信息</a>
+                <a class="active item" href="#" th:href="@{/fff/notice}" ><i class="bell outline icon"></i>发布通知</a>
+                <a class="item" href="#" th:href="@{/fff/avatar}" ><i class="picture icon"></i>头像信息</a>
                 <div class="right menu">
                     <div class="right m-item m-mobile-hide menu">
                         <div id="dropdown menu" class="ui dropdown item">
@@ -58,36 +58,34 @@
                         <button id="rch" type="button" class="ui button"><i class="search icon"></i>搜索</button>
                     </div>
                     <div class="ui field" style="position: relative;left: 60%">
-                        <a href="#" th:href="@{/fff/avatar/input}" class="ui yellow button"><i class="pencil icon"></i>添加</a>
+                        <a href="#" th:href="@{/fff/notice/input}" class="ui yellow button"><i class="pencil icon"></i>添加</a>
                     </div>
                 </div>
             </div>
             <div id="table1">
-                <table th:fragment="avatarList" class="ui compact table">
+                <table th:fragment="msgList" class="ui compact table">
                     <thead>
                     <tr align="center">
                         <th>ID</th>
-                        <th>头像名称</th>
-                        <th>图片</th>
-                        <th>最近更新时间</th>
+                        <th>标题名称</th>
+                        <th>更新时间</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="avatar,iterStat : ${pageInfo.list}" align="center">
+                    <tr th:each="msg,iterStat : ${pageInfo.list}" align="center">
                         <td th:text="${iterStat.count}">1</td>
-                        <td th:text="${avatar.avatarName}">小黑</td>
-                        <td><img src="../../static/img/leimu-small.jpg" th:src="${avatar.address}"
-                                 style="max-width: 100px;max-height: 60px"></td>
-                        <td th:text="${#dates.format(avatar.createtime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
-                        <td th:text="${avatar.flag} ? 正常 : 封禁">正常</td>
+                        <td th:text="${msg.title}">小黑</td>
+<!--                        <td><textarea th:text="${msg.content}">aw...</textarea></td>-->
+                        <td th:text="${#dates.format(msg.createtime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
+                        <td th:text="${msg.flag} ? 正常 : 封禁">正常</td>
                         <td>
                             <div class="ui buttons">
-                                <a href="#" th:href="@{/fff/avatar/{id}/input(id=${avatar.id})}"
+                                <a href="#" th:href="@{/fff/notice/{id}/input(id=${msg.id})}"
                                    class="ui positive button">编辑</a>
                                 <div class="or" data-text="io"></div>
-                                <a id="remove-btn" href="#" th:href="@{/fff/avatar/{id}/remove(id=${avatar.id})}" class="ui button">删除</a>
+                                <a id="remove-btn" href="#" th:href="@{/fff/notice/{id}/remove(id=${msg.id})}" class="ui button">删除</a>
                             </div>
                         </td>
                     </tr>
@@ -110,7 +108,7 @@
                                     <p style="height: 40px;vertical-align: middle;line-height: 30px;">第 <span
                                             th:text="${pageInfo.pageNum}"></span> 页，共 <span id="maxPage"
                                                                                             th:text="${pageInfo.pages}"></span>
-                                        页，有 <span th:text="${pageInfo.total}"></span> 张图片</p>
+                                        页，有 <span th:text="${pageInfo.total}"></span> 条公告</p>
                                 </div>
 
                                 <div class="three wide column">
@@ -211,7 +209,7 @@
         loaddata();
     });
     function loaddata1(){
-        $("#table1").load("/fff/avatar/search", {
+        $("#table1").load("/fff/notice/search", {
             keyword: $("[name='keyword']").val(),
             pageNum: n
         },function (response,status) {
@@ -221,7 +219,7 @@
         });
     }
     function loaddata(){
-        $("#table1").load("/fff/avatar/search", {
+        $("#table1").load("/fff/notice/search", {
             keyword: $("[name='keyword']").val(),
             pageNum: n
         });

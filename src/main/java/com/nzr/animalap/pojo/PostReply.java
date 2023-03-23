@@ -15,8 +15,10 @@ public class PostReply {
     private String content;
     private Date createtime;
     private Integer parentId;
-    private boolean status;
+    private Integer postId;
+    private boolean flag;
 
     private User user;
-    private User parentUser;
+    private User parent;
+    private Post post;
 }

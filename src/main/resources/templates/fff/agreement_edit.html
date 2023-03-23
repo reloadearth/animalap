@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程审核</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          data-filtered="filtered">
+</head>
+<body>
+<div class="ui container">
+    <div class="ui segment">
+        <form id="animal-form" action="#" th:object="${agreement}"
+              th:action="@{/fff/rop/edit(id=*{id})}" method="post"
+              class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+
+            <div class="ui grid">
+                <div class="two wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <label>真实姓名</label>
+                        <input type="text" name="realname" placeholder="真实姓名" th:value="*{realname}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="required field">
+                        <label>手机号</label>
+                        <input type="number" name="phone" placeholder="手机号" th:value="*{phone}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="four wide computer three wide tablet six wide mobile column">
+                    <div class="required field">
+                        <label>身份证号</label>
+                        <input type="text" name="idCard" placeholder="身份证号" th:value="*{idCard}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="six wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <label>家地址</label>
+                        <input type="text" name="address" placeholder="家地址" th:value="*{address}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="required field">
+                        <label>QQ</label>
+                        <input type="text" name="qq" placeholder="QQ" th:value="*{qq}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="five wide computer three wide tablet six wide mobile column">
+                    <div class="required field">
+                        <label>微信</label>
+                        <input type="text" name="wechat" placeholder="微信" th:value="*{wechat}" disabled="disabled">
+                    </div>
+                </div>
+                <div class="six wide computer nine wide tablet six wide mobile column">
+                    <div class="required field">
+                        <label>邮箱</label>
+                        <input type="text" name="email" placeholder="邮箱" th:value="*{email}" disabled="disabled">
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="grouped fields">
+                <label>实地考核</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="0" name="test1" checked="checked" th:checked="*{test1==0}">
+                        <label>未进行</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="1" name="test1" th:checked="*{test1==1}">
+                        <label style="color: deepskyblue">已通过</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="2" name="test1" th:checked="*{test1==2}">
+                        <label style="color: red">未通过</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grouped fields">
+                <label>手续办理</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="0" name="test2" checked="checked" th:checked="*{test2==0}">
+                        <label>未进行</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="1" name="test2" th:checked="*{test2==1}">
+                        <label style="color: deepskyblue">已通过</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="2" name="test2" th:checked="*{test2==2}">
+                        <label style="color: red">未通过</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grouped fields">
+                <label>回访情况</label>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="radio" value="0" name="test3" checked="checked" th:checked="*{test3==0}">
+                        <label>未进行</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="1" name="test3" th:checked="*{test3==1}">
+                        <label style="color: deepskyblue">已通过</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox checked">
+                        <input type="radio" value="2" name="test3" th:checked="*{test3==2}">
+                        <label style="color: red">未通过</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+
+            <div class="ui right aligned container">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" name="flag" th:checked="*{flag}">
+                    <label>
+                        <div class="ui label" style="position: relative;top:-5px">上线</div>
+                    </label>
+                    <br>
+                </div>
+            </div>
+            <div class="ui right aligned container">
+                <button type="button" class="ui instagram button" onclick="window.history.go(-1)">返回</button>
+                <button id="publish-btn" class="ui blue button">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $(".ui.form").form();
+
+</script>
+</body>
+</html>

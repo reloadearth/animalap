@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.AgreementMapper">
+    <resultMap id="agreementQuery" type="com.nzr.animalap.queryVo.AgreementQuery">
+        <id property="id" column="id"></id>
+        <result property="phone" column="phone"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="test1" column="test1"></result>
+        <result property="test2" column="test2"></result>
+        <result property="test3" column="test3"></result>
+        <result property="flag" column="flag"></result>
+        <result property="nickname" column="nickname"></result>
+        <result property="animalName" column="animal_name"></result>
+    </resultMap>
+    <resultMap id="agreement" type="com.nzr.animalap.pojo.Agreement">
+        <id property="id" column="id"></id>
+        <result property="userId" column="user_id"></result>
+        <result property="animalId" column="animal_id"></result>
+        <result property="idCard" column="id_card"></result>
+        <result property="realname" column="realname"></result>
+        <result property="phone" column="phone"></result>
+        <result property="qq" column="qq"></result>
+        <result property="email" column="email"></result>
+        <result property="wechat" column="wechat"></result>
+        <result property="address" column="address"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="test1" column="test1"></result>
+        <result property="test2" column="test2"></result>
+        <result property="test3" column="test3"></result>
+        <result property="flag" column="flag"></result>
+    </resultMap>
+    <select id="list" resultMap="agreementQuery">
+        select r.id,r.id_card,r.realname,r.phone,r.updatetime,r.test1,r.test2,r.test3,r.flag,u.nickname,a.animal_name
+               from f_agreement r left join f_user u on r.user_id=u.id left join f_animal a on r.animal_id=a.id
+    </select>
+    <select id="search" resultMap="agreementQuery">
+        select r.id,r.id_card,r.realname,r.phone,r.updatetime,r.test1,r.test2,r.test3,r.flag,u.nickname,a.animal_name
+                from f_agreement r left join f_user u on r.user_id=u.id left join f_animal a on r.animal_id=a.id
+                where u.nickname like #{keyword} or a.animal_name like #{keyword} or r.phone like #{keyword}
+    </select>
+    <update id="update" parameterType="com.nzr.animalap.pojo.Agreement">
+        update f_agreement set test1=#{test1},test2=#{test2},test3=#{test3},flag=#{flag} where id=#{id}
+    </update>
+    <select id="getById" resultMap="agreement">
+        select id,id_card,realname,address,qq,email,wechat,phone,test1,test2,test3,flag,user_id,animal_id,createtime,updatetime
+            from f_agreement where id=#{id}
+    </select>
+</mapper>

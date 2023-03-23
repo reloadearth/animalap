@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nzr.animalap.mapper.PostReplyMapper">
+    <resultMap id="reply" type="com.nzr.animalap.pojo.PostReply">
+        <id property="id" column="id"></id>
+        <result property="userId" column="user_id"></result>
+        <result property="content" column="content"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="parentId" column="parent_id"></result>
+        <result property="postId" column="post_id"></result>
+        <result property="flag" column="flag"></result>
+        <association property="user" javaType="com.nzr.animalap.pojo.User">
+            <id property="id" column="uid"></id>
+            <result property="nickname" column="nickname"></result>
+        </association>
+        <association property="parent" javaType="com.nzr.animalap.pojo.User">
+            <id property="id" column="uid2"></id>
+            <result property="nickname" column="nickname2"></result>
+        </association>
+        <association property="post" javaType="com.nzr.animalap.pojo.Post">
+            <id property="id" column="pid"></id>
+            <result property="content" column="pcontent"></result>
+        </association>
+
+    </resultMap>
+    <select id="list" resultMap="reply">
+        select r.id,r.user_id,r.content,r.createtime,r.parent_id,r.post_id,r.flag,u.id uid,u.nickname,u2.id uid2,u2.nickname nickname2,p.id pid,p.content pcontent
+            from f_post_reply r left join f_user u on r.user_id=u.id left join f_user u2 on r.parent_id=u2.id left join f_post p on r.post_id=p.id
+    </select>
+    <select id="search" resultMap="reply">
+        select r.id,r.user_id,r.content,r.createtime,r.parent_id,r.post_id,r.flag,u.id uid,u.nickname,u2.id uid2,u2.nickname nickname2,p.id pid,p.content pcontent
+            from f_post_reply r left join f_user u on r.user_id=u.id left join f_user u2 on r.parent_id=u2.id left join f_post p on r.post_id=p.id
+            where r.content like #{keyword} or u.nickname like #{keyword} or u2.nickname like #{keyword}
+    </select>
+    <update id="banned">
+        update f_post_reply set flag=0 where id=#{id}
+    </update>
+    <update id="unblock">
+        update f_post_reply set flag=1 where id=#{id}
+    </update>
+</mapper>

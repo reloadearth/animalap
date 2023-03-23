@@ -14,8 +14,8 @@ public class Post {
     private Integer userId;
     private String content;
     private Date createtime;
-    private boolean status;
+    private boolean flag;
 
-    private User user;
+    private String nickname;
 
 }

@@ -100,7 +100,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="7">
+                        <th colspan="9">
                             <div class="ui grid">
                                 <div class="three wide column">
                                     <button class="ui mini button" id="prePage" th:unless="${pageInfo.isFirstPage}">
@@ -108,7 +108,7 @@
                                     </button>
                                 </div>
 
-                                <div class="four wide column">
+                                <div class="five wide column">
                                     第<input name="gotoPage" type="text" style="width: 20%">页
                                     <button id="goto" type="button" class="ui mini button">直达</button>
                                 </div>
@@ -116,10 +116,10 @@
                                     <p style="height: 40px;vertical-align: middle;line-height: 30px;">第 <span
                                             th:text="${pageInfo.pageNum}"></span> 页，共 <span id="maxPage"
                                                                                             th:text="${pageInfo.pages}"></span>
-                                        页，有 <span th:text="${pageInfo.total}"></span> 只小动物</p>
+                                        页，有 <span th:text="${pageInfo.total}"></span> 位用户</p>
                                 </div>
 
-                                <div class="three wide column">
+                                <div class="two wide column">
                                     <button class="ui mini button" id="nextPage" th:unless="${pageInfo.isLastPage}">
                                         下一页
                                     </button>
@@ -190,7 +190,7 @@
     $(".ui.dropdown").dropdown({
         on: 'hover'
     });
-    $("#remove-btn").click(function (){
+    $("table1").on('click','#remove-btn',function (){
         return  confirm("真的要删除嘛，务必三思~");
     });
     var n = 1;
