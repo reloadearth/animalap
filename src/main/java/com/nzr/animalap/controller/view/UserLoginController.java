@@ -32,7 +32,7 @@ public class UserLoginController {
         if(user != null){
             user.setPassword(null);
             session.setAttribute("user",user);
-            return "homepage";
+            return "redirect:/view/home";
         }
         attributes.addFlashAttribute("message","账号或密码有误，请重新输入");
         return "redirect:/view/login";

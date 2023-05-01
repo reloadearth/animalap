@@ -85,4 +85,8 @@
             </if>
         </where>
     </select>
+    <select id="rch" resultType="com.nzr.animalap.queryVo.UserList">
+        select u.id,u.nickname,u.avatar_id,u.description,a.address from f_user u left join f_avatar a on u.avatar_id=a.id
+            where u.status=1 and u.flag=0 and a.flag=1 and (u.nickname like #{keyword} or u.id like #{keyword})
+    </select>
 </mapper>

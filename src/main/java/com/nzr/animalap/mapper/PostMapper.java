@@ -16,4 +16,6 @@ public interface PostMapper {
     int banned(Integer id);
 
     int unblock(Integer id);
+
+    List<Post> rch(String keyword);
 }

@@ -15,4 +15,6 @@ public interface AgreementMapper {
     Agreement getById(Integer id);
 
     int update(Agreement agreement);
+
+    int insert(Agreement agreement);
 }

@@ -5,6 +5,8 @@ import com.nzr.animalap.pojo.Notice;
 import com.nzr.animalap.service.NoticeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,12 +29,14 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int add(Notice notice) {
         notice.setCreatetime(new Date());
         return noticeMapper.insert(notice);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int remove(Integer id) {
         return noticeMapper.delete(id);
     }
@@ -43,6 +47,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int edit(Notice notice) {
         return noticeMapper.update(notice);
     }

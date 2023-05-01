@@ -13,4 +13,6 @@ public interface AgreementService {
     Agreement getById(Integer id);
 
     int edit(Agreement agreement);
+
+    int add(Agreement agreement);
 }

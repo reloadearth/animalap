@@ -46,4 +46,8 @@
         select id,id_card,realname,address,qq,email,wechat,phone,test1,test2,test3,flag,user_id,animal_id,createtime,updatetime
             from f_agreement where id=#{id}
     </select>
+    <insert id="insert" parameterType="com.nzr.animalap.pojo.Agreement">
+        insert into f_agreement (id_card,realname,address,qq,email,wechat,phone,createtime,updatetime,test1,test2,test3,flag,user_id,animal_id)
+            value (#{idCard},#{realname},#{address},#{qq},#{email},#{wechat},#{phone},#{createtime},#{updatetime},#{test1},#{test2},#{test3},#{flag},#{userId},#{animalId})
+    </insert>
 </mapper>

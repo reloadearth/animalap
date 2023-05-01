@@ -5,11 +5,14 @@ import com.nzr.animalap.mapper.VcodeMapper;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.pojo.Vcode;
 import com.nzr.animalap.queryVo.UserDetailQuery;
+import com.nzr.animalap.queryVo.UserList;
 import com.nzr.animalap.queryVo.UserQuery;
 import com.nzr.animalap.service.UserService;
 import com.nzr.animalap.utils.MD5Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -42,6 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int signup(User user) {
         if(userMapper.checkrepeat(user.getUsername()) != null){
             return 0;
@@ -66,6 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int setVcode(Vcode vcode) {
         vcode.setCreatetime(new Date());
         return vcodeMapper.add(vcode);
@@ -77,6 +82,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int forgot(String username, String vcode, String password) {
         User user = userMapper.getByUsername(username);
         Vcode okVcode = vcodeMapper.getNew(user.getId());
@@ -107,6 +113,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int add(User user) {
         if(userMapper.checkrepeat(user.getUsername()) != null){
             return 0;
@@ -120,6 +127,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int remove(int id) {
         return userMapper.delete(id);
     }
@@ -130,6 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int edit(User user) {
         user.setUpdatetime(new Date());
         return userMapper.update(user);
@@ -139,6 +148,12 @@ public class UserServiceImpl implements UserService {
     public List<UserDetailQuery> search(String keyword) {
         String okKeyword = '%' + keyword + '%';
         return userMapper.search(okKeyword);
+    }
+
+    @Override
+    public List<UserList> rch(String keyword) {
+        String okKeyword = '%' + keyword + '%';
+        return userMapper.rch(okKeyword);
     }
 
 }

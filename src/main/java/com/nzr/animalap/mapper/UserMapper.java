@@ -2,6 +2,7 @@ package com.nzr.animalap.mapper;
 
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.queryVo.UserDetailQuery;
+import com.nzr.animalap.queryVo.UserList;
 import com.nzr.animalap.queryVo.UserQuery;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,6 @@ public interface UserMapper {
     int update(User user);
 
     List<UserDetailQuery> search(String keyword);
+
+    List<UserList> rch(String keyword);
 }

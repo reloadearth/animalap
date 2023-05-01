@@ -3,6 +3,7 @@ package com.nzr.animalap.service;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.pojo.Vcode;
 import com.nzr.animalap.queryVo.UserDetailQuery;
+import com.nzr.animalap.queryVo.UserList;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface UserService {
     int edit(User user);
 
     List<UserDetailQuery> search(String keyword);
+
+    List<UserList> rch(String keyword);
 }

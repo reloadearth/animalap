@@ -19,6 +19,29 @@
             <result property="categoryName" column="category_name"></result>
         </association>
     </resultMap>
+    <resultMap id="animalDetail" type="com.nzr.animalap.pojo.Animal">
+        <id property="id" column="id"></id>
+        <result property="animalName" column="animal_name"></result>
+        <result property="age" column="age"></result>
+        <result property="gender" column="gender"></result>
+        <result property="color" column="color"></result>
+        <result property="nature" column="nature"></result>
+        <result property="health" column="health"></result>
+        <result property="categoryId" column="category_id"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="description" column="description"></result>
+        <result property="firstpicture" column="firstpicture"></result>
+        <association property="user" javaType="com.nzr.animalap.pojo.User">
+            <id property="id" column="uid"></id>
+            <result property="nickname" column="nickname"></result>
+        </association>
+        <association property="type" javaType="com.nzr.animalap.pojo.AnimalCategory">
+            <id property="id" column="cid"></id>
+            <result property="categoryName" column="category_name"></result>
+        </association>
+
+    </resultMap>
 
     <select id="animalQueryList" resultMap="animal">
         select a.id,a.animal_name,u.nickname,a.updatetime,a.firstpicture,c.id cid,c.category_name,a.status
@@ -41,7 +64,7 @@
         delete from f_animal where id=#{id}
     </delete>
     <select id="getById" parameterType="_int" resultType="com.nzr.animalap.pojo.Animal">
-        select id,animal_name,age,gender,color,nature,health,category_id,user_id,status,description,firstpicture,grade
+        select id,animal_name,age,gender,color,nature,health,category_id,user_id,status,description,firstpicture,grade,updatetime
         from f_animal where id=#{id}
     </select>
     <update id="update" parameterType="com.nzr.animalap.pojo.Animal">
@@ -49,4 +72,15 @@
                           ,category_id=#{categoryId},user_id=#{userId},status=#{status},updatetime=#{updatetime},description=#{description},firstpicture=#{firstpicture},grade=#{grade}
         where id=#{id}
     </update>
+    <select id="animalListV" resultType="com.nzr.animalap.queryVo.AnimalList">
+        select id,animal_name,firstpicture,description,updatetime from f_animal where status=1 order by grade desc
+    </select>
+    <select id="getDetailById" resultMap="animalDetail">
+        select a.id,a.animal_name,a.age,a.gender,a.color,a.nature,a.health,a.category_id,a.user_id,a.updatetime,a.description,a.firstpicture,u.id uid,u.nickname,c.id cid,c.category_name
+        from f_animal a left join f_user u on a.user_id=u.id left join f_animal_category c on a.category_id=c.id
+        where a.id=#{id} and a.status=1
+    </select>
+    <select id="rch" resultType="com.nzr.animalap.queryVo.AnimalList">
+        select id,animal_name,firstpicture from f_animal where status=1 and animal_name like #{keyword}
+    </select>
 </mapper>

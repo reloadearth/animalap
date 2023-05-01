@@ -7,6 +7,8 @@ import com.nzr.animalap.pojo.PostReply;
 import com.nzr.animalap.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,11 +32,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int banned(Integer id) {
         return postMapper.banned(id);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int unblock(Integer id) {
         return postMapper.unblock(id);
     }
@@ -51,12 +55,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int banned2(Integer id) {
         return replyMapper.banned(id);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int unblock2(Integer id) {
         return replyMapper.unblock(id);
+    }
+
+    @Override
+    public List<Post> rch(String keyword) {
+        String okKeyword = '%' + keyword + '%';
+        return postMapper.rch(okKeyword);
     }
 }

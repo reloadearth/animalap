@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瑞宠</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        #font1{
+            font-family: "STXinwei", "华文新魏", STXinwei, serif;
+            font-size: 36px;
+            color: #e8e8e8;
+            text-shadow: 2px 2px #000000;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example" _mstaria-label="420797">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" th:href="@{/view/home}" id="font1">瑞宠领养平台</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation" _mstaria-label="320099">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#" th:href="@{/view/animal}"><i class="bi bi-clipboard-heart"></i>小动物们</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/view/bbs}"><i class="bi bi-cup-hot"></i>论坛</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/view/notice}"><i class="bi bi-bell"></i>平台公告</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-diamond"></i>我的账号</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" th:href="@{/view/user/home}"><i class="bi bi-person"></i>个人主页</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/view/user/agreement}"><i class="bi bi-list-columns"></i>我的申请</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/view/user/setting}"><i class="bi bi-person-gear"></i>账户安全</a></li>
+                        <hr>
+                        <li><a class="dropdown-item" href="#" th:href="@{/view/user/logout}"><i class="bi bi-box-arrow-in-right"></i>退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form role="search" action="#" th:action="@{/view/search/animal}" method="get">
+                <input class="form-control" name="keyword" type="search" placeholder="Search" aria-label="Search" _mstplaceholder="74607" _mstaria-label="74607">
+            </form>
+        </div>
+    </div>
+</nav>
+</header>
+
+<main>
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item carousel-item-next carousel-item-start">
+                <img class="bd-placeholder-img" width="100%" height="100%" src="https://i.imgtg.com/2023/03/24/98LcK.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></img>
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>旷野之息</h1>
+                        <p>大大小小的灌溉工具正在转动着...</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">昨天</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="bd-placeholder-img" width="100%" height="100%" src="https://i.imgtg.com/2023/03/24/98GOa.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></img>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>人类之光</h1>
+                        <p>“这是人类的光辉时刻！”一位学者站在大厦顶喊道...</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">今天</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item active carousel-item-start">
+                <img class="bd-placeholder-img" width="100%" height="100%" src="https://i.imgtg.com/2023/03/24/98HZs.jpg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></img>
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1>星际迷航</h1>
+                        <p>在去往比邻星的途中误入虫洞...</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">明天</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+        <br>
+        <a href="#" th:href="@{/view/animals}" class="btn btn-outline-secondary d-inline-flex align-items-center" type="button" style="position: absolute;right: 18%">
+            更多>>
+            <svg class="bi ms-1" width="0" height="20"><use xlink:href="#arrow-right-short"></use></svg>
+        </a>
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4" th:each="animal,iterStat : ${pageInfo.list}">
+                <img class="bd-placeholder-img rounded-circle" src="../static/img/leimu-small.jpg" th:src="${animal.firstpicture}" style="max-height: 140px">
+                <h2 class="fw-normal" th:text="${animal.animalName}">小黑</h2>
+                <p th:text="${animal.description}">波斯猫 它们喜欢安定的环境，并且喜欢被温柔的对待。它们不爱动、不爱玩耍、安静，主要靠它们的大眼睛来交流。它们不会过多地需要人的关注，能在家中独处，胆子比较小。</p>
+                <p><a class="btn btn-secondary" href="#" th:href="@{/view/animal/detail(id=${animal.id})}">查看细节 »</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">《荷塘月色》 <span class="text-muted">朱自清</span></h2>
+                <p class="lead">&ensp;&ensp;月光如流水一般，静静地泻在这一片叶子和花上。薄薄的青雾浮起在荷塘里。叶子和花仿佛在牛乳中洗过一样;又像笼着轻纱的梦。虽然是满月，天上却有一层淡淡的云，所以不能朗照;但我以为这恰是到了好处——酣眠固不可少，小睡也别有风味的。月光是隔了树照过来的，高处丛生的灌木，落下参差的斑驳的黑影，峭楞楞如鬼一般;弯弯的杨柳的稀疏的倩影，却又像是画在荷叶上。塘中的月色并不均匀;但光与影有着和谐的旋律，如梵婀玲上奏着的名曲。</p>
+                <p class="lead">&ensp;&ensp;荷塘的四面，远远近近，高高低低都是树，而杨柳最多。这些树将一片荷塘重重围住;只在小路一旁，漏着几段空隙，像是特为月光留下的。树色一例是阴阴的，乍看像一团烟雾;但杨柳的丰姿，便在烟雾里也辨得出。树梢上隐隐约约的是一带远山，只有些大意罢了。树缝里也漏着一两点路灯光，没精打采的，是渴睡人的眼。这时候最热闹的，要数树上的蝉声与水里的蛙声;但热闹是它们的，我什么也没有。</p>
+            </div>
+            <div class="col-md-5">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="https://i.imgtg.com/2023/03/27/jSglN.jpg">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">《从百草园到三味书屋》<span class="text-muted">鲁迅</span></h2>
+                <p class="lead">&ensp;&ensp;不必说碧绿的菜畦，光滑的石井栏，高大的皂荚树，紫红的桑椹;也不必说鸣蝉在树叶里长吟，肥胖的黄蜂伏在菜花上，轻捷的叫天子(云雀)忽然从草间直窜向云霄里去了。
+                    单是周围的短短的泥墙根一带，就有无限趣味。油蛉在这里低唱，蟋蟀们在这里弹琴。翻开断砖来，有时会遇见蜈蚣;还有斑蝥，倘若用手指按住它的脊梁，便会拍的一声，从后窍喷出一阵烟雾。何首乌藤和木莲藤缠络着，木莲有莲房一般的果实，何首乌有拥肿的根。
+                    有人说，何首乌根是有象人形的，吃了便可以成仙，我于是常常拔它起来，牵连不断地拔起来，也曾因此弄坏了泥墙，却从来没有见过有一块根象人样。如果不怕刺，还可以摘到覆盆子，象小珊瑚珠攒成的小球，又酸又甜，色味都比桑椹要好得远。</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"src="https://i.imgtg.com/2023/03/27/jSvza.gif">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">《秋之红》 <span class="text-muted">映斗</span></h2>
+                <p class="lead">&ensp;&ensp;许多年以后，再次来到那个曾经无数次来过的地方，眼前的景像让我完全陌生，林立的楼群包围着一个不伦不类的公园。宽广的大街仿佛冷冷的告诉我："这里已变成商业的小区".花花绿绿的广告牌，豪华的酒店，仿佛在得意的炫耀它们的富有。
+                    那大街的位置曾是多么肥沃的土地，养育欢笑着多少善良质朴无华的农民，走在曾经熟悉的地方，凭着记忆努力寻找她柔曼秀丽的身影。徒劳，完全徒劳，辗转，再次辗转，在她从前的地方我只看到一个可怜的小湖。这池水般的小湖泛着淡淡的光。
+                    完全没有了她以前的模样。这是她么？这是可爱的她么？不是的！不是的！你在哪里？你在哪儿？那秀丽的湖，你曾经是那样清纯唯美，曾经在你面前驻足回眸，双手捧起一掬你甘甜深情的水，如同拉住你的手。如今这一切温馨的情景都只存留在记忆中。</p>
+                <p class="lead">&ensp;&ensp;夜里，又一次梦见徜徉在你的湖畔，你调皮的甩动长长的秀发把薄凉的水溅到我的脸上，月光下你的凝眸让我心潮起伏，沉醉在这温柔遣眷的梦里，我不愿醒来。</p>
+            </div>
+            <div class="col-md-5">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="https://i.imgtg.com/2023/03/27/jSKXK.jpg">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-end"><a href="#">Back to top</a></p>
+        <p>© 2002–2023 Person, Inc. · <a href="https://blog.csdn.net/qq_45630650" target="_blank">Privacy</a> · <a >Terms</a></p>
+    </footer>
+</main>
+
+<script>
+    // const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+    // const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.nzr.animalap.mapper;
 
 import com.nzr.animalap.pojo.Animal;
+import com.nzr.animalap.queryVo.AnimalList;
 import com.nzr.animalap.queryVo.AnimalQuery;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,10 @@ public interface AnimalMapper {
     Animal getById(int id);
 
     int update(Animal animal);
+
+    List<AnimalList> animalListV();
+
+    Animal getDetailById(Integer id);
+
+    List<AnimalList> rch(String keyword);
 }

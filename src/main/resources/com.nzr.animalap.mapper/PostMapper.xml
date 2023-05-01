@@ -14,4 +14,8 @@
     <update id="unblock" parameterType="com.nzr.animalap.pojo.Post">
         update f_post set flag=1 where id=#{id}
     </update>
+    <select id="rch" resultType="com.nzr.animalap.pojo.Post">
+        select id,user_id,content from f_post
+            where flag=1 and content like #{keyword}
+    </select>
 </mapper>

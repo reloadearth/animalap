@@ -21,4 +21,6 @@ public interface PostService {
     int banned2(Integer id);
 
     int unblock2(Integer id);
+
+    List<Post> rch(String keyword);
 }
