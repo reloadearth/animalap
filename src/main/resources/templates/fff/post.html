@@ -70,8 +70,10 @@
                 <tr align="center">
                     <th>ID</th>
                     <th>用户名</th>
+                    <th>标题</th>
                     <th>内容</th>
                     <th>更新时间</th>
+                    <th>评论人数</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -80,9 +82,11 @@
                 <tr th:each="post,iterStat : ${pageInfo.list}" align="center">
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${post.nickname}">小黑</td>
+                    <td th:text="${post.title}">好文摘抄</td>
                     <td th:text="${post.content}">《生活》当欢笑淡成沉默，当信心变成失落，我走近梦想的脚步，是否依旧坚定执着；
                         当笑颜流失在心的沙漠，当霜雪冰封了亲情承诺，我无奈的心中</td>
                     <td th:text="${#dates.format(post.createtime,'yyyy/MM/dd HH:mm')}">2023/3/14 13:39</td>
+                    <td th:text="${post.replyCount}">20</td>
                     <td th:text="${post.flag} ? 正常 : 封禁">正常</td>
                     <td>
                         <a id="banned-btn" href="#" th:href="@{/fff/bbs/{id}/banned(id=${post.id})}" class="ui button">封禁</a>

@@ -19,11 +19,11 @@
     </resultMap>
 
     <select id="checkUsernameAndPassword" resultType="com.nzr.animalap.pojo.User">
-        select id,username from f_user
+        select * from f_user
         where username=#{username} and password=#{password};
     </select>
     <select id="adminLogin" resultType="com.nzr.animalap.pojo.User">
-        select id,username from f_user
+        select * from f_user
         where flag=1 and username=#{username} and password=#{password}
     </select>
     <select id="checkrepeat" resultType="com.nzr.animalap.pojo.User">

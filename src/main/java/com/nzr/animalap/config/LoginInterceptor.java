@@ -1,4 +1,4 @@
-package com.nzr.animalap.interceptor;
+package com.nzr.animalap.config;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 

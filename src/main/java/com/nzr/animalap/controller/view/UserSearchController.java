@@ -3,6 +3,7 @@ package com.nzr.animalap.controller.view;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nzr.animalap.pojo.Post;
+import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.queryVo.AnimalList;
 import com.nzr.animalap.queryVo.UserList;
 import com.nzr.animalap.service.AnimalService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -84,7 +86,7 @@ public class UserSearchController {
     @GetMapping("/search/bbs")
     public String third(Model model,@RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
                     @RequestParam(defaultValue = "",value = "keyword")String keyword){
-        String orderby = "createtime desc";
+        String orderby = "p.createtime desc";
         PageHelper.startPage(pageNum,12,orderby);
         List<Post> posts = postService.rch(keyword);
         if(posts != null){
@@ -93,17 +95,42 @@ public class UserSearchController {
         }
         return "search_bbs";
     }
-    @PostMapping("/search/bbs")
-    public String t(Model model,@RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
-                    @RequestParam(defaultValue = "",value = "keyword")String keyword){
+
+    /**
+     * 首次进入论坛
+     * @param model
+     * @param pageNum
+     * @param session
+     * @return
+     */
+    @GetMapping("/bbs")
+    public String newPage(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,HttpSession session){
         String orderby = "createtime desc";
         PageHelper.startPage(pageNum,12,orderby);
-        List<Post> posts = postService.rch(keyword);
+        List<Post> posts = postService.listByUserId(((User)session.getAttribute("user")).getId());
         if(posts != null){
             PageInfo<Post> pageInfo = new PageInfo<>(posts);
             model.addAttribute("pageInfo",pageInfo);
-            model.addAttribute("key",keyword);
         }
-        return "search_bbs :: searchList";
+        return "post";
+    }
+
+    /**
+     * 分页
+     * @param model
+     * @param pageNum
+     * @param session
+     * @return
+     */
+    @PostMapping("/bbs")
+    public String toPage(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,HttpSession session){
+        String orderby = "createtime desc";
+        PageHelper.startPage(pageNum,12,orderby);
+        List<Post> posts = postService.listByUserId(((User)session.getAttribute("user")).getId());
+        if(posts != null){
+            PageInfo<Post> pageInfo = new PageInfo<>(posts);
+            model.addAttribute("pageInfo",pageInfo);
+        }
+        return "post :: searchList";
     }
 }

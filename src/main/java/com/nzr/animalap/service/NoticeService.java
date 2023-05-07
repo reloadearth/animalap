@@ -16,4 +16,6 @@ public interface NoticeService {
     Notice getById(Integer id);
 
     int edit(Notice notice);
+
+    List<Notice> list1();
 }

@@ -15,4 +15,8 @@ public interface AgreementService {
     int edit(Agreement agreement);
 
     int add(Agreement agreement);
+
+    List<AgreementQuery> listByUserId(Integer id);
+
+    int withdraw(Integer id);
 }

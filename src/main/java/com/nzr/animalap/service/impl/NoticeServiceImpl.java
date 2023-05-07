@@ -51,4 +51,13 @@ public class NoticeServiceImpl implements NoticeService {
     public int edit(Notice notice) {
         return noticeMapper.update(notice);
     }
+
+    /**
+     * 用户查看公告
+     * @return
+     */
+    @Override
+    public List<Notice> list1() {
+        return noticeMapper.list1();
+    }
 }

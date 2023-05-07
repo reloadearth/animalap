@@ -66,6 +66,18 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.0</version>
         </dependency>
+        <!-- 正则表达式 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.15</version>
+        </dependency>
+        <!-- JSON辅助工具 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>

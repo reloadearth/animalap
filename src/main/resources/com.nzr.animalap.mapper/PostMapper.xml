@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.nzr.animalap.mapper.PostMapper">
     <select id="list" resultType="com.nzr.animalap.pojo.Post">
-        select p.id,p.user_id,u.nickname,p.content,p.createtime,p.flag from f_post p left join f_user u on p.user_id=u.id
+        select p.id,p.user_id,u.nickname,p.title,p.content,p.createtime,p.flag,r1.reply_count from f_post p
+        left join f_user u on p.user_id=u.id
+        left join (select r.post_id,count(r.post_id) reply_count from f_post_reply r where r.flag=1 group by post_id) r1 on p.id=r1.post_id
     </select>
     <select id="search" resultType="com.nzr.animalap.pojo.Post">
-        select p.id,p.user_id,u.nickname,p.content,p.createtime,p.flag from f_post p left join f_user u on p.user_id=u.id
-                    where u.username like #{keyword} or p.content like #{keyword}
+        select p.id,p.user_id,u.nickname,p.title,p.content,p.createtime,p.flag,r1.reply_count from f_post p
+        left join f_user u on p.user_id=u.id
+        left join (select r.post_id,count(r.post_id) reply_count from f_post_reply r where r.flag=1 group by post_id) r1 on p.id=r1.post_id
+        where u.nickname like #{keyword} or p.content like #{keyword} or p.title like #{keyword}
     </select>
     <update id="banned" parameterType="com.nzr.animalap.pojo.Post">
         update f_post set flag=0 where id=#{id}
@@ -15,7 +19,22 @@
         update f_post set flag=1 where id=#{id}
     </update>
     <select id="rch" resultType="com.nzr.animalap.pojo.Post">
-        select id,user_id,content from f_post
-            where flag=1 and content like #{keyword}
+        select p.id,p.user_id,u.nickname,p.title,p.content,p.createtime,r1.reply_count from f_post p
+        left join f_user u on p.user_id=u.id
+        left join (select r.post_id,count(r.post_id) reply_count from f_post_reply r where r.flag=1 group by post_id) r1 on p.id=r1.post_id
+        where p.flag=1 and (p.title like #{keyword} or p.content like #{keyword} or u.nickname like #{keyword})
+    </select>
+    <select id="getById" resultType="com.nzr.animalap.pojo.Post">
+        select p.id,p.user_id,u.nickname,p.title,p.content,p.createtime,r1.reply_count,a.address avatar from f_post p
+        left join f_user u on p.user_id=u.id
+        left join f_avatar a on u.avatar_id=a.id
+        left join (select r.post_id,count(r.post_id) reply_count from f_post_reply r where r.flag=1 group by post_id) r1 on p.id=r1.post_id
+        where p.flag=1 and p.id=#{id}
+    </select>
+    <select id="listByUserId" resultType="com.nzr.animalap.pojo.Post">
+        select p.id,p.user_id,u.nickname,p.title,p.content,p.createtime,r1.reply_count from f_post p
+        left join f_user u on p.user_id=u.id
+        left join (select r.post_id,count(r.post_id) reply_count from f_post_reply r where r.flag=1 group by post_id) r1 on p.id=r1.post_id
+        where p.user_id=#{userId} and p.flag=1
     </select>
 </mapper>

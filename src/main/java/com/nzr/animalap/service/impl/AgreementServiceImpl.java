@@ -1,9 +1,11 @@
 package com.nzr.animalap.service.impl;
 
+import com.nzr.animalap.dto.AgreementCount;
 import com.nzr.animalap.mapper.AgreementMapper;
 import com.nzr.animalap.mapper.AnimalMapper;
 import com.nzr.animalap.pojo.Agreement;
 import com.nzr.animalap.pojo.Animal;
+import com.nzr.animalap.pojo.Notice;
 import com.nzr.animalap.queryVo.AgreementQuery;
 import com.nzr.animalap.service.AgreementService;
 import com.nzr.animalap.service.AnimalService;
@@ -42,10 +44,24 @@ public class AgreementServiceImpl implements AgreementService {
         return agreementMapper.update(agreement);
     }
 
+    /**
+     * 申请领养
+     * @param agreement
+     * @return
+     */
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int add(Agreement agreement) {
+        //判断是存在申请进行中
+        AgreementCount agreementCount = agreementMapper.listByUserId(agreement.getUserId());
+        if(agreementCount.getCount() >=1){
+            return 3;
+        }
         Animal animal = animalMapper.getById(agreement.getAnimalId());
+        //判断小动物当前状态
+        if(!animal.isStatus()){
+            return 4;
+        }
         animal.setStatus(false);
         animalMapper.update(animal);
         agreement.setTest1(0);
@@ -54,4 +70,20 @@ public class AgreementServiceImpl implements AgreementService {
         agreement.setFlag(true);
         return agreementMapper.insert(agreement);
     }
+
+    /**
+     * 通过用户id查询申请记录
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<AgreementQuery> listByUserId(Integer userId) {
+        return agreementMapper.listByUserId1(userId);
+    }
+
+    @Override
+    public int withdraw(Integer id) {
+        return agreementMapper.withdraw(id);
+    }
+
 }

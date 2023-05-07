@@ -48,8 +48,8 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input id="password1" type="password" name="password" maxlength="20" placeholder="请输入密码" onkeyup="ischeckpwd()">
-            <div id="ispassword" class="repeat message" style="display: none;">密码格式应为8~20位字母和数字组合</div>
+            <input id="password1" type="password" name="password" maxlength="16" placeholder="请输入密码" onkeyup="ischeckpwd()">
+            <div id="ispassword" class="repeat message" style="display: none;">密码格式应为6~16位字母和数字</div>
           </div>
         </div>
         <button id="button1" class="ui fluid inverted large submit button" disabled="disabled">注册</button>
@@ -126,7 +126,7 @@
 
   function ischeckpwd(){
     let value = document.getElementById("password1").value;
-    if(value.length<8){
+    if(value.length<6){
       document.getElementById("ispassword").style.display="block";
       pass();
     }else{

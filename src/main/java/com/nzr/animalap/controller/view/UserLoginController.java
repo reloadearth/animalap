@@ -51,7 +51,7 @@ public class UserLoginController {
             attributes.addFlashAttribute("message","注册成功");
             return "login";
         }
-        attributes.addFlashAttribute("message","注册失败，可能是邮箱已被注册或格式有误");
+        attributes.addFlashAttribute("message","注册失败，可能是邮箱已被注册或（邮箱/密码）格式有误");
         return "redirect:/view/signup";
     }
 
@@ -107,7 +107,7 @@ public class UserLoginController {
                     return "redirect:/view/forgot";
             case 1: attributes.addFlashAttribute("message","重置密码成功");
                     return "redirect:/view/login";
-            default: attributes.addFlashAttribute("message","数据格式有误");
+            default: attributes.addFlashAttribute("message","密码/验证码格式有误");
                     return "redirect:/view/forgot";
         }
     }

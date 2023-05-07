@@ -9,16 +9,9 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
-public class Post {
+public class Opinion {
     private Integer id;
     private Integer userId;
-    private String title;
     private String content;
     private Date createtime;
-    private boolean flag;
-
-    private String nickname;
-    private String avatar;
-    private int replyCount;
-
 }

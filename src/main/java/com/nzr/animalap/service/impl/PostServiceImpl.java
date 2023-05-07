@@ -4,12 +4,14 @@ import com.nzr.animalap.mapper.PostMapper;
 import com.nzr.animalap.mapper.PostReplyMapper;
 import com.nzr.animalap.pojo.Post;
 import com.nzr.animalap.pojo.PostReply;
+import com.nzr.animalap.queryVo.PostDetail;
 import com.nzr.animalap.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,5 +72,40 @@ public class PostServiceImpl implements PostService {
     public List<Post> rch(String keyword) {
         String okKeyword = '%' + keyword + '%';
         return postMapper.rch(okKeyword);
+    }
+
+    @Override
+    public PostDetail getById(Integer id) {
+        PostDetail postDetail = new PostDetail();
+        Post post = postMapper.getById(id);
+        List<PostReply> replyList = replyMapper.getByPostId(id);
+        postDetail.setId(id);
+        postDetail.setTitle(post.getTitle());
+        postDetail.setContent(post.getContent());
+        postDetail.setAvatar(post.getAvatar());
+        postDetail.setNickname(post.getNickname());
+        postDetail.setCreatetime(post.getCreatetime());
+        postDetail.setReplyCount(post.getReplyCount());
+        postDetail.setUserId(post.getUserId());
+        postDetail.setNickname(post.getNickname());
+        postDetail.setReplyList(replyList);
+        return postDetail;
+    }
+
+    @Override
+    public int newReply(PostReply postReply) {
+        postReply.setCreatetime(new Date());
+        postReply.setFlag(true);
+        return replyMapper.insert(postReply);
+    }
+
+    /**
+     * 查询用户自己发布的帖子
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Post> listByUserId(Integer userId) {
+        return postMapper.listByUserId(userId);
     }
 }

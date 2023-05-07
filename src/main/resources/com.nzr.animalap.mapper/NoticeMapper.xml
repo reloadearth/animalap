@@ -19,4 +19,7 @@
     <update id="update" parameterType="com.nzr.animalap.pojo.Notice">
         update f_notice set title=#{title},content=#{content},flag=#{flag} where id=#{id}
     </update>
+    <select id="list1" resultType="com.nzr.animalap.pojo.Notice">
+        select * from f_notice where flag=1
+    </select>
 </mapper>

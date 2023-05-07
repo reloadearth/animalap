@@ -50,4 +50,15 @@
         insert into f_agreement (id_card,realname,address,qq,email,wechat,phone,createtime,updatetime,test1,test2,test3,flag,user_id,animal_id)
             value (#{idCard},#{realname},#{address},#{qq},#{email},#{wechat},#{phone},#{createtime},#{updatetime},#{test1},#{test2},#{test3},#{flag},#{userId},#{animalId})
     </insert>
+    <select id="listByUserId" resultType="com.nzr.animalap.dto.AgreementCount">
+        select count(*) count from f_agreement where user_id=#{userId} and flag=1
+    </select>
+    <select id="listByUserId1" resultType="com.nzr.animalap.queryVo.AgreementQuery">
+        select r.id,r.id_card,r.realname,r.phone,r.updatetime,r.test1,r.test2,r.test3,r.flag,u.nickname,a.animal_name
+        from f_agreement r left join f_user u on r.user_id=u.id left join f_animal a on r.animal_id=a.id
+        where r.flag=1 and r.user_id=#{userId}
+    </select>
+    <update id="withdraw">
+        update f_agreement set flag=0 where id=#{id}
+    </update>
 </mapper>

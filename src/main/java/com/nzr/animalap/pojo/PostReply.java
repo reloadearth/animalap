@@ -14,11 +14,9 @@ public class PostReply {
     private Integer userId;
     private String content;
     private Date createtime;
-    private Integer parentId;
     private Integer postId;
     private boolean flag;
 
     private User user;
-    private User parent;
     private Post post;
 }

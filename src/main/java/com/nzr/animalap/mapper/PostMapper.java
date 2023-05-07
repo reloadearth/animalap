@@ -18,4 +18,8 @@ public interface PostMapper {
     int unblock(Integer id);
 
     List<Post> rch(String keyword);
+
+    Post getById(Integer id);
+
+    List<Post> listByUserId(Integer userId);
 }

@@ -15,4 +15,8 @@ public interface PostReplyMapper {
     int banned(Integer id);
 
     int unblock(Integer id);
+
+    List<PostReply> getByPostId(Integer id);
+
+    int insert(PostReply postReply);
 }

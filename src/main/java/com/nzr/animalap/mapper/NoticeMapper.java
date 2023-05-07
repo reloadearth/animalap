@@ -19,4 +19,6 @@ public interface NoticeMapper {
     Notice getById(Integer id);
 
     int update(Notice notice);
+
+    List<Notice> list1();
 }

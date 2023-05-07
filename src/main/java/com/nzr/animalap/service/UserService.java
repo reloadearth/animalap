@@ -1,5 +1,6 @@
 package com.nzr.animalap.service;
 
+import com.nzr.animalap.pojo.Opinion;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.pojo.Vcode;
 import com.nzr.animalap.queryVo.UserDetailQuery;
@@ -35,4 +36,11 @@ public interface UserService {
     List<UserDetailQuery> search(String keyword);
 
     List<UserList> rch(String keyword);
+
+    List<Opinion> getOpinion();
+
+    Opinion getOpinionByUserId(Integer id);
+
+
+    int userEdit(User user, String opinion);
 }

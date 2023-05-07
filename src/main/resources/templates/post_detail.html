@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子详情</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #cce8cf;
+        }
+        #font1{
+            font-family: "STXinwei", "华文新魏", STXinwei, serif;
+            font-size: 36px;
+            color: #e8e8e8;
+            text-shadow: 2px 2px #000000;
+        }
+
+        #font1 {
+            font-family: "STXinwei", "华文新魏", STXinwei, serif;
+            font-size: 36px;
+            color: #e8e8e8;
+            text-shadow: 2px 2px #000000;
+        }
+
+        .post {
+            position: relative;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .post-date {
+            position: relative;
+            left: 86%;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .post-author {
+            position: absolute;
+            top: 10%;
+            left: 105%;
+        }
+
+        .post-author img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .post-author a {
+            display: block;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example" _mstaria-label="420797">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" th:href="@{/view/home}" id="font1">瑞宠领养平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                    aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation"
+                    _mstaria-label="320099">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#" th:href="@{/view/animal}"><i
+                                class="bi bi-clipboard-heart"></i>小动物们</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" th:href="@{/view/bbs}"><i class="bi bi-cup-hot"></i>论坛</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/view/notice}"><i class="bi bi-bell"></i>平台公告</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                class="bi bi-diamond"></i>我的账号</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" th:href="@{/view/user/home}"><i
+                                    class="bi bi-person"></i>个人主页</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/view/user/agreement}"><i
+                                    class="bi bi-list-columns"></i>我的申请</a></li>
+<!--                            <li><a class="dropdown-item" href="#" th:href="@{/view/user/setting}"><i-->
+<!--                                    class="bi bi-person-gear"></i>账户安全</a></li>-->
+                            <hr>
+                            <li><a class="dropdown-item" href="#" th:href="@{/view/user/logout}"><i
+                                    class="bi bi-box-arrow-in-right"></i>退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form role="search" action="#" th:action="@{/view/search/animal}" method="get">
+                    <input class="form-control" name="keyword" type="search" placeholder="Search" aria-label="Search"
+                           _mstplaceholder="74607" _mstaria-label="74607">
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<br>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 bg-light shadow p-3 mb-5 rounded">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="post">
+                            <div class="post-author">
+                                <a href="#" th:href="@{/view/user/info(id=postDetail.user_id)}">
+                                    <img th:src="${postDetail.avatar}" alt="">
+                                    <span th:text="${postDetail.nickname}">rc_nbzoisjk</span>
+                                </a>
+                            </div>
+                            <div class="post-title" th:text="${postDetail.title}">这是标题</div>
+                            <div class="post-content" th:text="${postDetail.content}">这是内容</div>
+                            <div class="post-date" th:text="${#dates.format(postDetail.createtime,'yyyy年MM月dd日')}">
+                                2023年05月07日
+                            </div>
+                        </div>
+                        <form th:action="@{/view/bbs/newReply}" action="#" method="post">
+                            ⭐可以发表评论了~
+                            <input type="hidden" name="userId" th:value="${session.user.id}">
+                            <input type="hidden" name="postId" th:value="${postDetail.id}">
+                            <div class="form-outline" >
+                                <textarea class="form-control" id="textAreaExample3" rows="2" name="content" required></textarea>
+                                <label class="form-label" for="textAreaExample3">评论内容</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                                发布
+                            </button>
+                        </form>
+                        <ul class="media-list">
+                            <li class="media" style="position: relative;width: 100%" th:each="reply,iterStat : ${postDetail.replyList}" >
+                                <div class="media-left">
+                                    <p th:text="${iterStat.count} + '楼'">1楼</p>
+                                    <a href="#" th:href="@{/view/user/info(id=reply.userId)}" style="width: 30%">
+                                        <img th:src="${reply.avatar}" class="media-object" style="width: 70px;height: 70px">
+                                        <p th:text="${reply.nickname}">rc_nbzoisjk</p>
+                                    </a>
+                                </div>
+                                <div class="media-body" style="position: absolute;top: 30%;left: 15%;width: 86%">
+                                    <span th:text="${reply.content}">
+                                        我是一大串重复的内容；我是一大串重复的内容；我是一大串重复的内容；我是一大串重复的内容；我是一大串重复的内容。</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <p>© 2002–2023 Person, Inc. · <a href="https://blog.csdn.net/qq_45630650" target="_blank">Privacy</a> ·
+            <a>Terms</a></p>
+    </div>
+</main>
+<footer class="text-muted py-5" style="position: fixed;bottom: 0px;width: 100%">
+
+</footer>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+</body>
+</html>
