@@ -111,9 +111,9 @@ public class UserLoginController {
                     return "redirect:/view/forgot";
         }
     }
-    @GetMapping("/logout")
+    @GetMapping("/user/logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return "view/login";
+        return "redirect:/view/login";
     }
 }

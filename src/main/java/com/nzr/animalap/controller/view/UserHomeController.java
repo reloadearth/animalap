@@ -2,6 +2,7 @@ package com.nzr.animalap.controller.view;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nzr.animalap.pojo.Avatar;
 import com.nzr.animalap.pojo.Opinion;
 import com.nzr.animalap.pojo.User;
 import com.nzr.animalap.queryVo.AnimalList;
@@ -69,5 +70,18 @@ public class UserHomeController {
         return "redirect:/view/user/home";
     }
 
+    @GetMapping("/user/info")
+    public String userDetail(@RequestParam Integer id,Model model){
+        User user = userService.getById(id);
+        model.addAttribute("currentAvatar",avatarService.getById(user.getAvatarId()));
+        model.addAttribute("info",user);
+        Opinion opinion = userService.getOpinionByUserId(user.getId());
+        if(opinion == null){
+            opinion = new Opinion();
+            opinion.setContent("无");
+        }
+        model.addAttribute("opinion",opinion);
+        return "user_info1";
+    }
 
 }

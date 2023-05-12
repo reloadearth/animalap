@@ -93,6 +93,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int newReply(PostReply postReply) {
         postReply.setCreatetime(new Date());
         postReply.setFlag(true);

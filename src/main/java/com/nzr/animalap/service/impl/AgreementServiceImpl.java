@@ -82,6 +82,7 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,rollbackFor = Exception.class)
     public int withdraw(Integer id) {
         return agreementMapper.withdraw(id);
     }
